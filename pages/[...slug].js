@@ -3,7 +3,6 @@ import {MainLayout} from '../components/MainLayout'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {PopularArticle} from '../components/PopularArticle'
-import Image from 'next/image'
 
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -252,12 +251,12 @@ const Reaction = ({res, reloadArticle}) => {
         reacted ?
         arrReaction.map((e, i) => {
           return (<button key={i}  className={`focus:outline-none flex-col justify-center space-y-1 mx-6 my-2 ${e.action !== reactionStr ? 'opacity-50' : null}`}>
-            <Image
+            {/* <Image
               src={`/emoticon/emot_${e.action}.png`}
               alt={e.action}
               width={80}
               height={80}
-            />
+            /> */}
             <p>{Math.round((e.val === 0 ? total : e.val / total) * 100)}%</p>
             <p>{e.action[0].toUpperCase() + e.action.slice(1, e.action.length)}</p>
           </button>)
