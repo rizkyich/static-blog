@@ -9,7 +9,7 @@ import {CatCarousel} from '../components/CatCarousel'
 
 const Home = ({res}) => {
   const {article_id, arr_new_article, arr_current_article, arr_businesstips_article, arr_hangout_article, arr_higoesupdate_article, arr_lifestyle_article, arr_techsocialmedia_article, arr_popular_article} = res
-  console.log(res)
+
   return (
     <MainLayout>
       <main className="w-full h-auto py-8 md:py-12">
@@ -37,8 +37,8 @@ export const getStaticProps = async () => {
     },
     body: JSON.stringify({type: 'all'})
   })
-  console.log(res)
   const json = await res.json()
+  console.log(json)
   return {props: {res: json}}
 }
 

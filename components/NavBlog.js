@@ -61,7 +61,7 @@ export const NavBlog = ({getNavOpen}) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    router.push(`/search/${searchText}`)
+    router.push(`/search?q=${searchText}`)
   }
 
   const handleScroll = () => {

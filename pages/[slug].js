@@ -690,19 +690,6 @@ const CommentSection = ({data, arrCommentId, isLastData, keyId, reloadArticle, c
   )
 }
 
-// const RecommendArticle = ({articles}) => {
-
-
-//   return (
-//     <div>
-//       {
-//         articles.map((article, i) => (
-//           ar
-//         ))
-//       }
-//     </div>
-//   )
-// }
 
 const Article = ({res}) => {
   const router = useRouter()
@@ -712,10 +699,6 @@ const Article = ({res}) => {
     if (slug) setResponse(await fetchData())
   }, [slug])
 
-  useEffect(() => {
-    console.log(response)
-  },[response])
-
   const fetchData = async () => {
     const res = await fetch('https://apiw.higo.id/blog-viewarticle', 
     {
@@ -724,15 +707,13 @@ const Article = ({res}) => {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({article: slug[0]})
+      body: JSON.stringify({article: slug})
     })
-    console.log('nsshshsh')
     const json = await res.json()
     return json
   }
 
   const reloadA = async () => {
-    console.log('masuk')
     setResponse(await fetchData())
   }
 

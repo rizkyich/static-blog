@@ -26,7 +26,7 @@ export default function Hangout({res})
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await fetch('https://apiw.higo.id/blog-viewtype', 
   {
     method: 'POST',

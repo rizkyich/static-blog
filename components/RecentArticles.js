@@ -7,12 +7,16 @@ import { useRouter } from "next/router"
 export const RecentArticles = ({articles, idArr, keyword}) => {
   const [isLoadMore, setIsLoadMore] = useState(false)
   const [articleId, setArticleId] = useState(idArr)
-  const [articlesArr, setArticlesArr] = useState([...articles])
+  const [articlesArr, setArticlesArr] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [loadMore, setLoadMore] = useState(true)
   const router = useRouter()
   const pathname = router.pathname
 
+  useEffect(() => {
+    console.log(articles, 'g')
+    setArticlesArr([...articles])
+  }, [articles])
 
   useEffect(() => {
     if (isLoadMore) {
@@ -77,7 +81,7 @@ export const RecentArticles = ({articles, idArr, keyword}) => {
         }
       </div>
       {
-       loadMore && <LoadMore loading={isLoading} getLoadMore={(val) => fetchArticles()}/>
+       (loadMore && !keyword) && <LoadMore loading={isLoading} getLoadMore={(val) => fetchArticles()}/>
       }
     </div>
   )

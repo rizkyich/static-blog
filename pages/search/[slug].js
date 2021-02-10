@@ -20,7 +20,7 @@ export default function Search() {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({article_id: '', keyword: slug[0]})
+      body: JSON.stringify({article_id: '', keyword: slug})
     })
     const json = await res.json()
     return json
