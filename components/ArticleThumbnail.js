@@ -2,8 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const ArticleThumbnail = ({item, index, lastindex}) => { 
-  const {id, date, img_url, content, redirect_link, subtitle, title, type, view} = item
+export const ArticleThumbnail = ({item, index, lastindex}) => {
   
   const numberWithPoint = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -15,29 +14,55 @@ export const ArticleThumbnail = ({item, index, lastindex}) => {
   }
   
   return (
-    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-4' : 'my-4'} w-full flex h-40 md:h-72 pb-4 border-b-2 border-blue-200 lg:border-b-0`}>
-      <div style={{'backgroundImage': 'url(' + img_url + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg h-full w-5/12" id="img-cont">
-        {/* <img/> */}
-      </div>
+    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-4' : 'my-4'} ${item.img_url ? 'pb-4' : 'bg-gray-200 pb-0'} w-full flex h-40 md:h-72 border-b-2 border-blue-200 lg:border-b-0`}>
+      {
+        item.img_url ? 
+          <div style={{'backgroundImage': 'url(' + item.img_url + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg h-full w-5/12" id="img-cont">
+            {/* <img/> */}
+          </div>
+        :
+          <div className="animate-pulse shadow-lg h-full w-5/12 bg-gray-300" id="img-cont">
+            {/* <img/> */}
+          </div>
+      }
       <div className="h-full w-7/12 pl-2 md:pl-4 flex flex-col justify-between" id="item-info">
-        
-        <Link href="/[...slug]" as={`/${redirect_link}`} className="transition-all duratioon-150 w-full cursor-pointer">
-            <a className="group">
-              <div id="tgl-cat" className="w-full flex justify-between md:justify-start">
-                <p className="text-xs md:text-base text-blue-500 group-hover:text-blue-700  md:mr-4 w-18">{type}</p>
-                <p className="transition-all text-gray-500  duratioon-150 text-xs md:text-base group-hover:text-blue-500 w-20 md:w-auto ml-auto md:ml-1">{handleDate(date)}</p>
-              </div>
 
-              <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-700">{title}</h1>
-              {/* <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{title.length > 45 ? title.slice(0, 40) + '...' : title}</h1> */}
-              <div className="hidden md:block mt-1 leading-snug group-hover:text-blue-700 text-justify text-sm text-gray-700" dangerouslySetInnerHTML={{__html: content}}></div>
-            </a>
-        </Link>
+        {
+          item.redirect_link ?
+            <Link href="/[...slug]" as={`/${item.redirect_link}`} className="transition-all duratioon-150 w-full cursor-pointer">
+              <a className="group">
+                <div className="w-full h-full">
+                  <div id="tgl-cat" className="w-full flex justify-between md:justify-start">
+                    <p className="text-xs md:text-base text-blue-500 group-hover:text-blue-700  md:mr-4 w-18">{item.type}</p>
+                    <p className="transition-all text-gray-500  duratioon-150 text-xs md:text-base group-hover:text-blue-500 w-20 md:w-auto ml-auto md:ml-1">{handleDate(item.date)}</p>
+                  </div>
 
-        <div id="views" className="flex items-center justify-end lg:justify-start">
-          <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-          <p className="text-sm text-gray-500">{numberWithPoint(view)} Views</p>
-        </div>
+                  <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-700">{item.title}</h1>
+                  {/* <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{title.length > 45 ? title.slice(0, 40) + '...' : title}</h1> */}
+                  <div className="hidden md:block mt-1 leading-snug group-hover:text-blue-700 text-justify text-sm text-gray-700" dangerouslySetInnerHTML={{__html: item.content}}></div>
+                </div>
+              </a>
+          </Link>
+          :
+          <div className="w-full h-full">
+            <div className="w-full flex animate-pulse rounded-lg justify-between md:justify-start space-y-5 pt-4">
+              <div className="bg-gray-300 rounded-lg mr-4 h-8 w-5/12"></div>
+              <div className="bg-gray-300 w-5/12 md:w-auto h-8 ml-auto md:ml-1"></div>
+            </div>
+
+              <div className="transition-all duratioon-150 w-11/12 h-12 rounded-lg md:text-lg animate-pulse bg-gray-300"></div>
+                  {/* <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{title.length > 45 ? title.slice(0, 40) + '...' : title}</h1> */}
+              <div className="hidden md:block mt-1 bg-gray-300"></div>
+          </div>
+        }
+
+        {
+          item.type &&
+          <div id="views" className="flex items-center justify-end lg:justify-start">
+            <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
+            <p className="text-sm text-gray-500">{numberWithPoint(item.view)} Views</p>
+          </div>
+        }
       </div>
     </div>
   )

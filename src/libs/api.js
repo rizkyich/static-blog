@@ -31,11 +31,11 @@ const dataFetchReducer = (state = {}, action) => {
 }
 
 export const useApi = (initialRequestConfig, initialData = {}) => {
-  // console.log(initialRequestConfig, 'hhhhh')
   const initialRequest = initialRequestConfig || {}
   const [{method, path, data, params}, setRequest] = useState(initialRequest)
   const isValid = path
   const url = `${config.mainApiEndpoint}${path}`
+  console.log(initialRequest, 'public')
   const headers = {
     'Content-Type': 'application/json'
   }
@@ -46,7 +46,6 @@ export const useApi = (initialRequestConfig, initialData = {}) => {
     data: {[params]: data}
   }
   const configs = {params, method, path, data}
-  // console.log(isValid, 'validsad')
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,

@@ -14,8 +14,7 @@ export const RecentArticles = ({articles, idArr, keyword}) => {
   const pathname = router.pathname
 
   useEffect(() => {
-    console.log(articles, 'g')
-    setArticlesArr([...articles])
+    if (articles) setArticlesArr([...articles])
   }, [articles])
 
   useEffect(() => {
@@ -72,12 +71,14 @@ export const RecentArticles = ({articles, idArr, keyword}) => {
       <TitleText text={keyword ? 'Hasil Pencarian: ' + keyword : 'Artikel Terkini'}/>
       <div id="recent-articles-list" className="w-11/12 pt-4 mx-auto md:w-full">
         {
-          articles ? 
+          articlesArr[0] ? 
           articlesArr.map((e, index) => {
             return <ArticleThumbnail item={e} index={index} lastindex={articles.length - 1} key={index}/>
           })
           :
-          null
+          ['', '', '', ''].map((e, idx) => {
+            return <ArticleThumbnail key={idx}  item={e} lastindex={['', '', '', ''].length - 1} index={idx}/>
+          })
         }
       </div>
       {

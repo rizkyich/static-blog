@@ -18,8 +18,10 @@ const Home = ({initData}) => {
     data: 'all',
     method: 'post'
   }
+  console.log(initData, 'daj')
+  const initRequestArticle = initData && initData.isServer ? null : requestListArticleParam
   
-  const [listArticle, requestListArticle] = useApi(requestListArticleParam, initData)
+  const [listArticle, requestListArticle] = useApi(initRequestArticle, initData)
   const [arrArticle, setArrArticle] = useState({...listArticle.data})
   
   const prevDataState = usePrevious(listArticle.data)
@@ -33,20 +35,20 @@ const Home = ({initData}) => {
 
   return (
     <MainLayout>
-      {
-        arrArticle &&
-        <main className="w-full h-auto py-8 md:py-12">
-          <div className="container mx-auto relative md:px-8 lg:px-8 xl:px-28 2xl:px-40">
-            <div id="new article" className="w-12/12 lg:w-8/12 h-auto">
-              <NewArticle title={'Artikel Terbaru'} articles={arrArticle.arr_new_article} className="h-80"/>
-              <RecentArticles idArr={arrArticle.article_id} articles={arrArticle.arr_current_article}/>
-            </div>
-            <PopularArticle articles={arrArticle.arr_popular_article}/>
+      <main className="w-full h-auto py-8 md:py-12">
+        <div className="container mx-auto relative md:px-8 lg:px-8 xl:px-28 2xl:px-40">
+          <div id="new article" className="w-12/12 lg:w-8/12 h-auto">
+            <NewArticle title={'Artikel Terbaru'} articles={arrArticle.arr_new_article} className="h-80"/>
+            <RecentArticles idArr={arrArticle.article_id} articles={arrArticle.arr_current_article}/>
           </div>
-          {/* <VideoThumbnail/> */}
+          <PopularArticle articles={arrArticle.arr_popular_article}/>
+        </div>
+        {/* <VideoThumbnail/> */}
+        {
+          arrArticle.arr_businesstips_article &&
           <CatCarousel businesstips={arrArticle.arr_businesstips_article} hangouts={arrArticle.arr_hangout_article} updates={arrArticle.arr_higoesupdate_article} lifestyles={arrArticle.arr_lifestyle_article} techs={arrArticle.arr_techsocialmedia_article}/>
-        </main>
-      }
+        }
+      </main>
     </MainLayout>
   )
 }
