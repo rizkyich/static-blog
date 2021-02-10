@@ -264,12 +264,12 @@ const Reaction = ({res, reloadArticle}) => {
         :
         arrReaction.map((e, i) => {
           return (<button key={i} onClick={() => updateReaction(e.action).then(_=> reloadArticle())} className="focus:outline-none flex-col justify-center space-y-1 mx-6 my-2">
-            <Image
+            {/* <Image
               src={`/emoticon/emot_${e.action}.png`}
               alt={e.action}
               width={80}
               height={80}
-            />
+            /> */}
             <p>{Math.round((e.val === 0 ? total : e.val / total) * 100)}%</p>
             <p>{e.action[0].toUpperCase() + e.action.slice(1, e.action.length)}</p>
           </button>)
