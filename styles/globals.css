@@ -1,5 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
+  scroll-behavior: smooth;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -13,4 +18,41 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* NAV SLIDE IN ANIMATION */
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nav-mobile-blog {
+  transform: translateX(-83.333333%);
+  animation: slide-in forwards .5s;
+  animation-timing-function: cubic-bezier(.51,.92,.24,1.15);
+}
+
+.scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.cat-cont {
+  transform: translateX(100%);
+}
+
+.cat {
+  animation: slide-in forwards .3s;
+}
+
+.content-article a {
+  color: #016fff;
+  cursor: pointer;
 }

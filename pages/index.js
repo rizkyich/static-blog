@@ -1,65 +1,45 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import {MainLayout} from '../components/MainLayout'
+import {PopularArticle} from '../components/PopularArticle'
+import {NewArticle} from '../components/NewArticle'
+import {RecentArticles} from '../components/RecentArticles'
+import {VideoThumbnail} from '../components/VideoThumbnail'
+import {CatCarousel} from '../components/CatCarousel'
 
-export default function Home() {
+const Home = ({res}) => {
+  const {article_id, arr_new_article, arr_current_article, arr_businesstips_article, arr_hangout_article, arr_higoesupdate_article, arr_lifestyle_article, arr_techsocialmedia_article, arr_popular_article} = res
+  console.log(res)
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <MainLayout>
+      <main className="w-full h-auto py-8 md:py-12">
+        <div className="container mx-auto relative md:px-8 lg:px-8 xl:px-28 2xl:px-40">
+          <div id="new article" className="w-12/12 lg:w-8/12 h-auto">
+            <NewArticle title={'Artikel Terbaru'} articles={arr_new_article} className="h-80"/>
+            <RecentArticles idArr={article_id} articles={arr_current_article}/>
+          </div>
+          <PopularArticle articles={arr_popular_article}/>
         </div>
+        {/* <VideoThumbnail/> */}
+        <CatCarousel businesstips={arr_businesstips_article} hangouts={arr_hangout_article} updates={arr_higoesupdate_article} lifestyles={arr_lifestyle_article} techs={arr_techsocialmedia_article}/>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+    </MainLayout>
   )
 }
+
+export const getStaticProps = async () => {
+  const res = await fetch('https://apiw.higo.id/blog-viewtype', 
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify({type: 'all'})
+  })
+  console.log(res)
+  const json = await res.json()
+  return {props: {res: json}}
+}
+
+export default Home
