@@ -32,8 +32,10 @@ export default function Search() {
         <div className="container mx-auto relative md:px-8 lg:px-40 xl:px-96 2xl:px-96">
           
           {
-            response && 
+            response ? 
               <RecentArticles idArr={response.article_id} keyword={slug[0]} articles={response.arr_article}/>
+              :
+            <div className="bg-white w-full h-full"></div>
           }
         </div>          
       </main>

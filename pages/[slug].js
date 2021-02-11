@@ -3,6 +3,8 @@ import {MainLayout} from '../components/MainLayout'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {PopularArticle} from '../components/PopularArticle'
+import TitleText from '../components/TitleText'
+import {LoadMore} from '../components/LoadMore'
 
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -54,8 +56,6 @@ const ArticleCont = ({children, data}) => {
   const {article} = data
 
   const subContent = JSON.parse(article.subcontent)
-
-  console.log(subContent)
 
   return (
     <>
@@ -691,6 +691,48 @@ const CommentSection = ({data, arrCommentId, isLastData, keyId, reloadArticle, c
 }
 
 
+const RecommendArticle = ({articles}) => {
+  const [isLoading, setIsLoading] = useState(false)
+  
+  const numberWithPoint = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
+  const loadMoreRecommend = () => {
+
+  }
+
+  return (
+    <div className="container mx-auto md:w-11/12 lg:w-full pt-20 w-full h-auto">
+      <div className="w-full">
+      <TitleText text={'Rekomendasi untuk Kamu'}/>
+
+      <div className="w-full mt-4 grid grid-flow-col grid-cols-4">
+        {
+          articles.map((e, index) => (
+            <div key={index} className="w-11/12 h-full">
+              <img className="w-full shadow-xl h-56" src={e.img_url}/>
+              <div className="flex my-2 justify-between">
+                <p className="text-xs md:text-base text-blue-500 group-hover:text-blue-700  md:mr-4 w-18">{e.type}</p>
+              
+                <div id="views" className="flex items-center justify-end lg:justify-start">
+                  <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
+                  <p className="text-sm text-gray-500">{numberWithPoint(e.view)} Views</p>
+                </div>
+              </div>
+              <h4 className="font-semibold">{e.title}</h4>
+            </div>
+          ))
+        }
+      </div>
+      <div className="w-8/12 mt-20 mx-auto">
+        <LoadMore loading={isLoading} getLoadMore={() => loadMoreRecommend()}/>
+      </div>
+      </div>
+    </div>
+  )
+}
+
 const Article = ({res}) => {
   const router = useRouter()
   const {slug} = router.query 
@@ -723,7 +765,9 @@ const Article = ({res}) => {
         <div className="container mx-auto md:w-11/12 lg:w-full xl:px-28 relative 2xl:px-32 h-auto md:px-8 w-full">
           {
             !response ?
-            <p>loading</p>
+            <div className="w-full h-screen flex justify-items-center items-center">
+              <p>loading</p>
+            </div>
             :
             <>
               <ArticleCont data={response}>
@@ -733,8 +777,7 @@ const Article = ({res}) => {
               <Reaction res={response.article} reloadArticle={async () => setResponse(await fetchData())}/>
               <CommentSection data={response.arr_comment} arrCommentId={response.comment_id} isLastData={response.last_data} reloadArticle={reloadA} keyId={response.article.id} commentLength={response.count_comment}/>
               <PopularArticle articles={response.arr_popular_article}/>
-              {/* <RecommendArticle ae
-              rticles={response.arr_recommend_article}/> */}
+              <RecommendArticle articles={response.arr_recommend_article}/>
             </>
           }
         </div>

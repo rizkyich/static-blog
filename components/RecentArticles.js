@@ -6,16 +6,21 @@ import { useRouter } from "next/router"
 
 export const RecentArticles = ({articles, idArr, keyword}) => {
   const [isLoadMore, setIsLoadMore] = useState(false)
-  const [articleId, setArticleId] = useState(idArr)
+  const [articleId, setArticleId] = useState('')
   const [articlesArr, setArticlesArr] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [loadMore, setLoadMore] = useState(true)
+  const [lastData, setLastData] = useState(false)
   const router = useRouter()
   const pathname = router.pathname
 
   useEffect(() => {
     if (articles) setArticlesArr([...articles])
   }, [articles])
+
+  useEffect(() => {
+    if (idArr) setArticleId(idArr)
+  }, [idArr])
 
   useEffect(() => {
     if (isLoadMore) {
@@ -56,6 +61,7 @@ export const RecentArticles = ({articles, idArr, keyword}) => {
 
       response.json().then(data => {
         if (!data.arr_current_article[0]) setLoadMore(false)
+        setLastData(data.last_data)
         setIsLoading(false)
         setArticlesArr([...articlesArr, ...data.arr_current_article])
         setArticleId(data.article_id)
@@ -82,7 +88,7 @@ export const RecentArticles = ({articles, idArr, keyword}) => {
         }
       </div>
       {
-       (loadMore && !keyword) && <LoadMore loading={isLoading} getLoadMore={(val) => fetchArticles()}/>
+       ((loadMore && !keyword) && !lastData) && <LoadMore loading={isLoading} getLoadMore={(val) => fetchArticles()}/>
       }
     </div>
   )

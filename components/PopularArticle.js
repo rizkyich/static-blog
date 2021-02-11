@@ -9,9 +9,13 @@ export const PopularArticle = ({articles}) => {
         <TitleText text={'Artikel Populer'}/>
         <div id="popular-items" className="lg:p-3 w-full h-auto mt-4 lg:bg-blue-100">
           {
-            articles &&
+            articles ?
             articles.map((e, index) => {
               return <PopularItems item={e} lastindex={articles.length - 1} key={index} index={index}/>
+            })
+            :
+            ['','','','',''].map((e, index) => {
+              return <PopularItems item={e} lastindex={['','','','',''].length - 1} key={index} index={index}/>
             })
           }
         </div>
