@@ -174,7 +174,7 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
   }
 
   return (
-    <section id="share-container" className="fixed z-50 w-full lg:w-auto left-0 bottom-0 h-12 bg-gray-200 lg:bg-transparent lg:absolute top-0 lg:left-8 lg:pt-32">
+    <section id="share-container" className="fixed z-50 w-full lg:w-auto left-0 bottom-0 h-12 bg-gray-200 lg:bg-transparent lg:absolute lg:left-8 lg:pt-32">
       <ul className="w-full h-full flex space-x-10 justify-center items-center lg:flex-col lg:space-x-0 lg:space-y-6">
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('wa').then(_ => openSocmed('wa'))}>
@@ -698,8 +698,36 @@ const RecommendArticle = ({articles}) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
-  const loadMoreRecommend = () => {
+  const fetchArticles = () => {
+    const type = getPathName(pathname)
 
+    setIsLoading(true)
+    fetch('https://apiw.higo.id/blog-loadmorearticle', 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({type, article_id: articleId, keyword})
+      })
+    .then(response => {
+      if (response.status !== 200) {
+        console.log('There was an error', response)
+        return
+      }
+
+      response.json().then(data => {
+        if (!data.arr_current_article[0]) setLoadMore(false)
+        setLastData(data.last_data)
+        setIsLoading(false)
+        setArticlesArr([...articlesArr, ...data.arr_current_article])
+        setArticleId(data.article_id)
+      })
+    })
+    .catch(e => {
+      console.log('Errorni', e)
+    })
   }
 
   return (
@@ -726,7 +754,7 @@ const RecommendArticle = ({articles}) => {
         }
       </div>
       <div className="w-8/12 mt-20 mx-auto">
-        <LoadMore loading={isLoading} getLoadMore={() => loadMoreRecommend()}/>
+        <LoadMore loading={isLoading} getLoadMore={() => fetchArticles()}/>
       </div>
       </div>
     </div>
@@ -762,7 +790,7 @@ const Article = ({res}) => {
   return (
     <MainLayout>
       <main className="w-full h-auto py-8 md:py-12">
-        <div className="container mx-auto md:w-11/12 lg:w-full xl:px-28 relative 2xl:px-32 h-auto md:px-8 w-full">
+        <div className="container mx-auto px-4 md:w-11/12 lg:w-full xl:px-28 relative 2xl:px-32 h-auto md:px-8 w-full">
           {
             !response ?
             <div className="w-full h-screen flex justify-items-center items-center">

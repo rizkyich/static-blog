@@ -7,7 +7,7 @@ export const MainLayout = ({children}) => {
   const [isNavOpen, setIsNavOpen] = useState(false)
 
   return (
-    <div>
+    <div className="w-full">
       <NavBar/>
       <NavBlog getNavOpen={(val) => setIsNavOpen(val)}/>
       <div className={`${isNavOpen ? 'overflow-hidden' : null}`} style={{height: `${isNavOpen ? 'calc(100vh - 8rem)' : 'auto'}`}}>

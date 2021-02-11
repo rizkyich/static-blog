@@ -174,7 +174,7 @@ export const NavBlog = ({getNavOpen}) => {
 
             <h1 className="w-auto px-4 text-blue-700">{capsFirstLetter(pathName)}</h1>
 
-            <div className={`right-0 absolute transition-all duration-150 ml-auto ${enlargeSearch ? 'w-full' : 'w-10'} shadow-lg my-4 h-10 rounded-full bg-white`}>
+            <div className={`right-0 absolute transition-all duration-150 ml-auto ${enlargeSearch ? 'w-full' : 'w-10'} shadow-lg h-10 rounded-full bg-white`}>
               {
                 !enlargeSearch ? 
                   <button className="w-full h-full" onClick={() => setEnlargeSearch(true)}>
