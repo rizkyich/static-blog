@@ -12,8 +12,8 @@ export const MainLayout = ({children}) => {
       <NavBlog getNavOpen={(val) => setIsNavOpen(val)}/>
       <div className={`${isNavOpen ? 'overflow-hidden' : null}`} style={{height: `${isNavOpen ? 'calc(100vh - 8rem)' : 'auto'}`}}>
         {children}
+        <Footer/>
       </div>
-      <Footer/>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { LoadMore } from '../components/LoadMore'
 import TitleText from '../components/TitleText'
 import { useRouter } from "next/router"
 
-export const RecentArticles = ({articles, idArr, keyword}) => {
+export const RecentArticles = ({articles, idArr, typeList, keyword, title}) => {
   const [isLoadMore, setIsLoadMore] = useState(false)
   const [articleId, setArticleId] = useState('')
   const [articlesArr, setArticlesArr] = useState([])
@@ -41,8 +41,8 @@ export const RecentArticles = ({articles, idArr, keyword}) => {
 
   // console.log(articleId, 'kenaap')
   const fetchArticles = () => {
-    const type = getPathName(pathname)
-
+    const type = typeList ? typeList() : getPathName(pathname)
+    console.log(typeList, 'halo')
     setIsLoading(true)
     fetch('https://apiw.higo.id/blog-loadmorearticle', 
       {
@@ -73,13 +73,13 @@ export const RecentArticles = ({articles, idArr, keyword}) => {
   }
 
   return (
-    <div className="w-12/12 md:w-11/12 lg:w-full md:mx-auto h-auto pt-14">
-      <TitleText text={keyword ? 'Hasil Pencarian: ' + keyword : 'Artikel Terkini'}/>
+    <div className={`w-12/12 ${title ? 'md:w-full' : 'md:w-11/12'} lg:w-full md:mx-auto h-auto ${keyword || title ? 'pt-4' : 'pt-14'}`}>
+      <TitleText text={keyword ? 'Hasil Pencarian: ' + keyword : title ? title : 'Artikel Terkini'}/>
       <div id="recent-articles-list" className="w-11/12 pt-4 mx-auto md:w-full">
         {
           articlesArr[0] ? 
           articlesArr.map((e, index) => {
-            return <ArticleThumbnail item={e} index={index} lastindex={articles.length - 1} key={index}/>
+            return <ArticleThumbnail recommend={title} item={e} index={index} lastindex={articles.length - 1} key={index}/>
           })
           :
           ['', '', '', ''].map((e, idx) => {

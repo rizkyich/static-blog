@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {PopularArticle} from '../components/PopularArticle'
 import TitleText from '../components/TitleText'
 import {LoadMore} from '../components/LoadMore'
+import {RecentArticles} from '../components/RecentArticles'
 
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -47,8 +48,6 @@ const ArticleCont = ({children, data}) => {
     setWindowSize(size.width)
   }, [size])
 
-  console.log(data, 'sad')
-
   const numberWithPoint = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
@@ -87,7 +86,7 @@ const ArticleCont = ({children, data}) => {
 
       <div className="relative w-auto h-auto">  
         {children}
-        <div className="content-article w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: article.content}}>
+        <div className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: article.content}}>
           
         </div>
       </div> 
@@ -97,12 +96,12 @@ const ArticleCont = ({children, data}) => {
         subContent.map((e, i) => {
           return (  
             e.type === 'content' ? 
-               <div key={i} className="content-article w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: e.value}}></div>
+               <div key={i} className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: e.value}}></div>
             :
             e.type === 'image' ?
               <img key={i} src={e.img_url} styles={{height: '32rem'}} className="lg:w-12/12 mx-auto lg:w-8/12 lg:mx-0 lg:pl-32" />
             :
-              <h3 key={i} className="content-article w-11/12 md:w-12/12 mx-auto h-auto mt-12 mb-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32 font-semibold text-lg">{e.value}</h3>
+              <h3 key={i} className="content-article w-11/12 px-2 md:w-12/12 mx-auto h-auto mt-12 mb-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32 font-semibold text-lg">{e.value}</h3>
           )
         })
       }
@@ -174,7 +173,7 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
   }
 
   return (
-    <section id="share-container" className="fixed z-50 w-full lg:w-auto left-0 bottom-0 h-12 bg-gray-200 lg:bg-transparent lg:absolute lg:left-8 lg:pt-32">
+    <section id="share-container" className="fixed z-30 w-full lg:w-auto left-0 bottom-0 lg:top-0 h-12 bg-gray-200 lg:bg-transparent lg:absolute lg:left-8 lg:pt-32">
       <ul className="w-full h-full flex space-x-10 justify-center items-center lg:flex-col lg:space-x-0 lg:space-y-6">
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('wa').then(_ => openSocmed('wa'))}>
@@ -292,7 +291,12 @@ const CommentItem = ({keyId, item, goReload}) => {
   const [lastData, setLastData] = useState(true)
   const [openReplyComment, setOpenReplyComment] = useState(null)
   const [likeArr, setLikeArr] = useState([])
+  const [lengthArr, setLengthArr] = useState(0)
   const replyBtn = useRef()
+
+  useEffect(() => {
+    if (item.count_reply) setLengthArr(item.count_reply)
+  }, [item])
 
   const updateLike = async (id) => {
     let likeVal
@@ -341,15 +345,15 @@ const CommentItem = ({keyId, item, goReload}) => {
     }
   }, [showRep]);
 
-  const finishComment = () => {
+  const finishComment = (user) => {
     setLoading(false)
     setComment('')
     setUsername('')
-    loadReply(true).then(data => setReply(data))
+    loadReply(true).then(data => setReply(data, user))
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async (ev, user) => {
+    ev.preventDefault()
 
     const url = "https://apiw.higo.id/blog-savecomment"
 
@@ -361,11 +365,13 @@ const CommentItem = ({keyId, item, goReload}) => {
           'Content-Type': 'application/json'
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({blog_id: keyId, comment_id: item.id,username, comment})
+        body: JSON.stringify({blog_id: keyId, comment_id: item.id,username, comment: user ? `@${user} ${comment}` : comment})
       })
 
       const json = res.json()
       // setShowRep(true)
+      setOpenReply(false)
+      setOpenReplyComment(-1)
       return json
     } catch (e) {
       throw e
@@ -403,11 +409,15 @@ const CommentItem = ({keyId, item, goReload}) => {
     }
   }
 
-  const setReply = (data) => {
+  const setReply = (data, user) => {
       // setShowRep(false)
       console.log(data.arr_comment)
       setLastData(data.last_data)
-      setReplies([...replies, ...data.arr_comment])
+      if (user) {
+        setReplies([...data.arr_comment])
+      } else {
+        setReplies([...replies, ...data.arr_comment])
+      }
       setReplyId(data.comment_id)
   }
 
@@ -417,6 +427,7 @@ const CommentItem = ({keyId, item, goReload}) => {
       setOpenReply(true)
     } else {
       setOpenReplyComment(e)
+      setOpenReply(false)
     }
 
     console.log(openReplyComment, 'kkkk')
@@ -427,8 +438,8 @@ const CommentItem = ({keyId, item, goReload}) => {
       <div className="flex"><p className="font-semibold mr-3">{item.username}</p><p className="text-gray-600 text-sm">{item.diffdatetext}</p></div>
       <p className="mb-3">{item.comment}</p>
       <div className="flex items-center">
-        <p className="mr-3 pt-1">{item.like}</p>
-        <button onClick={() => updateLike().then(_ => goReload())} className="focus:outline-none">
+        <p className="mr-3 pt-1">{like ? item.like + 1 : item.like}</p>
+        <button onClick={() => updateLike()} className="focus:outline-none">
           {
             !like ?
             <FontAwesomeIcon color="lightgray" size="lg" icon={["fa", "thumbs-up"]} />
@@ -443,7 +454,7 @@ const CommentItem = ({keyId, item, goReload}) => {
       </div>
       {
         item.count_reply > 0 &&
-        <button onClick={() => setShowRep(!showRep)} className="focus:outline-none text-sm my-1 flex space-x-2 items-center hover:underline text-blue-600"><p>{item.count_reply} Balasan</p><FontAwesomeIcon className="text-blue-500" size="sm" icon={["fa", "chevron-down"]} /></button>
+        <button onClick={() => setShowRep(!showRep)} className="focus:outline-none text-sm my-1 flex space-x-2 items-center hover:underline text-blue-600"><p>{lengthArr} Balasan</p><FontAwesomeIcon className="text-blue-500" size="sm" icon={["fa", "chevron-down"]} /></button>
       }
       {
         openReply &&
@@ -488,7 +499,12 @@ const CommentItem = ({keyId, item, goReload}) => {
             <div key={idx} className={`pl-8 mb-3 mt-3 py-3 ${idx !== replies.length - 1 ?' border-gray-300 border-b-2' : null}`}>
 
               <div className="flex"><p className="font-semibold mr-3">{e.username}</p><p className="text-gray-600 text-sm">{e.diffdatetext}</p></div>
-                <p className="mb-3">{e.comment}</p>
+                {
+                  e.comment[0] === '@' ?
+                  <p className="mb-3"><span className="text-blue-700">{e.comment.split(' ')[0]}</span>{e.comment.substr(e.comment.split(' ')[0].length, e.comment.length)}</p>
+                  :
+                  <p className="mb-3">{e.comment}</p>
+                }
                 <div className="flex items-center">
                   <p className="mr-3 pt-1">{getReplyComment(e.id) ? e.like + 1 : e.like }</p>
                   <button onClick={() => updateLike(e.id)} className="focus:outline-none">
@@ -506,7 +522,7 @@ const CommentItem = ({keyId, item, goReload}) => {
               </div>
               {
                 openReplyComment === idx &&
-                <form onSubmit={e => handleSubmit(e).then(data => finishComment(data))} className="flex relative flex-col px-2 mt-2 justify-end items-end w-full h-auto pb-4">
+                <form onSubmit={ev => handleSubmit(ev, e.username).then(_=> finishComment(e.username))} className="flex relative flex-col px-2 mt-2 justify-end items-end w-full h-auto pb-4">
                   {
                     loading &&
                     <div className="absolute top-0 w-full h-full flex justify-center items-center bg-white bg-opacity-70">
@@ -528,7 +544,7 @@ const CommentItem = ({keyId, item, goReload}) => {
                   />
 
                   <div className="flex">
-                    <button onClick={() => setOpenReply(false)} className="focus:outline-none mr-6 w-20 border-2 border-gray-200  bg-gray-200 text-blue-600 mt-4 rounded-lg py-2 group hover:bg-white hover:border-2 hover:border-blue-500">
+                    <button onClick={() => setOpenReplyComment(-1)} className="focus:outline-none mr-6 w-20 border-2 border-gray-200  bg-gray-200 text-blue-600 mt-4 rounded-lg py-2 group hover:bg-white hover:border-2 hover:border-blue-500">
                       <p className="group-hover:text-blue-700">Batal</p>
                     </button>
 
@@ -543,7 +559,7 @@ const CommentItem = ({keyId, item, goReload}) => {
 
       }
       {
-        !lastData && <button onClick={() => loadReply().then(comments => setReply(comments))} className="flex focus:outline-none border-b-2 border-white hover:border-gray-500 transition-all duration-150 space-x-3 my-2 px-3"><FontAwesomeIcon color="lightgray" size="lg" icon={["fa", `${loadMore ? 'minus' : 'plus'}`]} />
+      !lastData && <button onClick={() => loadReply().then(comments => setReply(comments))} className="flex focus:outline-none border-b-2 border-white hover:border-gray-500 transition-all duration-150 space-x-3 my-2 px-3"><FontAwesomeIcon color="lightgray" size="lg" icon={["fa", `${loadMore ? 'minus' : 'plus'}`]} />
         <p className="text-gray-500">{loadMore ? 'Sembunyikan komentar' : 'Komentar lainnyas...'}</p></button>
       }
     </div>
@@ -647,7 +663,7 @@ const CommentSection = ({data, arrCommentId, isLastData, keyId, reloadArticle, c
     <div className="relative mt-4 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:ml-0">
       <h3 className="w-full border-b-2 border-gray-300 font-semibold">{commentLength} Komentar</h3>
 
-      <form onSubmit={e => handleSubmit(e).then(_ => finishComment())} className="flex relative flex-col justify-end items-end w-full h-auto border-b-2 border-gray-300 pb-4">
+      <form onSubmit={e => handleSubmit(e).then(_ => finishReplyComment())} className="flex relative flex-col justify-end items-end w-full h-auto border-b-2 border-gray-300 pb-4">
         {
           loading &&
           <div className="absolute top-0 w-full h-full flex justify-center items-center bg-white bg-opacity-70">
@@ -681,7 +697,8 @@ const CommentSection = ({data, arrCommentId, isLastData, keyId, reloadArticle, c
       }
 
       {
-        !lastData && <button onClick={() => loadMoreComment().then(comments => setMoreComment(comments))} className="flex focus:outline-none border-b-2 border-white hover:border-gray-500 transition-all duration-150 space-x-3 my-2 px-3"><FontAwesomeIcon color="lightgray" size="lg" icon={["fa", `${loadMore ? 'minus' : 'plus'}`]} />
+        !lastData && 
+        <button onClick={() => loadMoreComment().then(comments => setMoreComment(comments))} className="flex focus:outline-none border-b-2 border-white hover:border-gray-500 transition-all duration-150 space-x-3 my-2 px-3"><FontAwesomeIcon color="lightgray" size="lg" icon={["fa", `${loadMore ? 'minus' : 'plus'}`]} />
         <p className="text-gray-500">{loadMore ? 'Sembunyikan komentar' : 'Muat komentar sebelumnya...'}</p></button>
       }
 
@@ -691,15 +708,31 @@ const CommentSection = ({data, arrCommentId, isLastData, keyId, reloadArticle, c
 }
 
 
-const RecommendArticle = ({articles}) => {
+const RecommendArticle = ({type, articles, idArr}) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [arrId, setArrId] = useState('')
+  const [lastData, setLastData] = useState(false)
+  const [articlesArr, setArticlesArr] = useState([...articles])
+
+
+  useEffect(() => {
+    if (idArr) setArrId(idArr)
+  }, [idArr])
   
   const numberWithPoint = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
+  const getPathName = (str) => {
+    if (str === 'HIGOes Update') return 'higoesupdate'
+    if (str === 'Hangout') return 'hangout'
+    if (str === 'Lifestyle') return 'lifestyle'
+    if (str === 'Tech & Social Media') return 'techsocialmedia'
+    if (str === 'Business Tips') return 'businesstips'
+  } 
+
   const fetchArticles = () => {
-    const type = getPathName(pathname)
+    const typeStr = getPathName(type)
 
     setIsLoading(true)
     fetch('https://apiw.higo.id/blog-loadmorearticle', 
@@ -709,7 +742,7 @@ const RecommendArticle = ({articles}) => {
           'Content-Type': 'application/json'
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({type, article_id: articleId, keyword})
+        body: JSON.stringify({type: typeStr, article_id: arrId})
       })
     .then(response => {
       if (response.status !== 200) {
@@ -722,7 +755,7 @@ const RecommendArticle = ({articles}) => {
         setLastData(data.last_data)
         setIsLoading(false)
         setArticlesArr([...articlesArr, ...data.arr_current_article])
-        setArticleId(data.article_id)
+        setArrId(data.article_id)
       })
     })
     .catch(e => {
@@ -732,20 +765,23 @@ const RecommendArticle = ({articles}) => {
 
   return (
     <div className="container mx-auto md:w-11/12 lg:w-full pt-20 w-full h-auto">
-      <div className="w-full">
+    <div className="w-full hidden lg:block">
       <TitleText text={'Rekomendasi untuk Kamu'}/>
 
-      <div className="w-full mt-4 grid grid-flow-col grid-cols-4">
+      <div className="w-full mt-4 lg:grid grid-flow-row auto-rows-auto gap-4 xl:gap-10 grid-cols-4">
         {
-          articles.map((e, index) => (
-            <div key={index} className="w-11/12 h-full">
-              <img className="w-full shadow-xl h-56" src={e.img_url}/>
+          articlesArr.map((e, index) => (
+            <div key={index} className="w-12/12 h-full">
+              <img className="w-full shadow-xl h-46 xl:h-56" src={e.img_url}/>
               <div className="flex my-2 justify-between">
                 <p className="text-xs md:text-base text-blue-500 group-hover:text-blue-700  md:mr-4 w-18">{e.type}</p>
               
                 <div id="views" className="flex items-center justify-end lg:justify-start">
                   <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-                  <p className="text-sm text-gray-500">{numberWithPoint(e.view)} Views</p>
+                  {
+                    e.view &&
+                    <p className="text-sm text-gray-500">{numberWithPoint(e.view)} Views</p>
+                  }
                 </div>
               </div>
               <h4 className="font-semibold">{e.title}</h4>
@@ -754,8 +790,14 @@ const RecommendArticle = ({articles}) => {
         }
       </div>
       <div className="w-8/12 mt-20 mx-auto">
-        <LoadMore loading={isLoading} getLoadMore={() => fetchArticles()}/>
+        {
+         !lastData &&
+          <LoadMore loading={isLoading} getLoadMore={() => fetchArticles()}/>
+        }
       </div>
+      </div>
+      <div className="w-auto h-auto lg:hidden">
+        <RecentArticles title={'Rekomendasi untuk Kamu'} typeList={() => getPathName(type)} idArr={arrId} articles={articlesArr}/>
       </div>
     </div>
   )
@@ -790,7 +832,7 @@ const Article = ({res}) => {
   return (
     <MainLayout>
       <main className="w-full h-auto py-8 md:py-12">
-        <div className="container mx-auto px-4 md:w-11/12 lg:w-full xl:px-28 relative 2xl:px-32 h-auto md:px-8 w-full">
+        <div className="container mx-auto md:w-11/12 lg:w-full xl:px-28 relative 2xl:px-32 h-auto md:px-8 w-full">
           {
             !response ?
             <div className="w-full h-screen flex justify-items-center items-center">
@@ -805,7 +847,7 @@ const Article = ({res}) => {
               <Reaction res={response.article} reloadArticle={async () => setResponse(await fetchData())}/>
               <CommentSection data={response.arr_comment} arrCommentId={response.comment_id} isLastData={response.last_data} reloadArticle={reloadA} keyId={response.article.id} commentLength={response.count_comment}/>
               <PopularArticle articles={response.arr_popular_article}/>
-              <RecommendArticle articles={response.arr_recommend_article}/>
+              <RecommendArticle isLastData={response.last_data} idArr={response.article_id} type={response.article.type} articles={response.arr_recommend_article}/>
             </>
           }
         </div>

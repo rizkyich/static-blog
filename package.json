@@ -15,10 +15,12 @@
     "autoprefixer": "^10.2.1",
     "axios": "^0.21.1",
     "next": "10.0.5",
+    "nextjs-progressbar": "0.0.7",
     "postcss": "^8.2.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-multi-carousel": "^2.6.1",
+    "react-notifications": "^1.7.2",
     "tailwindcss": "^2.0.2"
   }
 }

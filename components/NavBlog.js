@@ -182,21 +182,21 @@ export const NavBlog = ({getNavOpen}) => {
                   </button>
                 :
                   <div className="flex transition-all duration-150 h-full w-full relative items-center">
-                    <form onSubmit={handleSubmit} style={{'width': 'calc(100% - 3rem)'}} className="h-full">
-                      <button type="submit" className="mr-2 w-10 h-full rounded-full bg-blue-700 hover:bg-blue-800">
-                        <FontAwesomeIcon color="white" icon={["fas", "search"]} />
+                    <form onSubmit={handleSubmit} style={{'width': 'calc(100% - 3rem)'}} className="h-full flex">
+                      <button type="submit" className="w-10 absolute right-0 h-full rounded-full bg-blue-700 hover:bg-blue-800">
+                        <FontAwesomeIcon color="white" icon={["fas", "arrow-right"]} />
                       </button>
                       <input
                         autoFocus
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         style={{'width': 'calc(100% - 3rem)'}}
-                        className="px-1 focus:outline-none"
+                        className="px-1 focus:outline-none ml-12"
                         placeholder="Search..."
                       />
                     </form>
-                    <button type="submit" className="absolute w-10 h-full rounded-full bg-red-500 hover:bg-red-700 right-0" onClick={() => setEnlargeSearch(false)}>
-                      <FontAwesomeIcon color="white" icon={["fas", "arrow-right"]} />
+                    <button type="submit" className="absolute w-10 h-full rounded-full bg-red-500 hover:bg-red-700 -left-0.5" onClick={() => setEnlargeSearch(false)}>
+                      <FontAwesomeIcon color="white" icon={["fas", "times"]} />
                     </button>
                   </div>
               }
@@ -206,7 +206,7 @@ export const NavBlog = ({getNavOpen}) => {
         {
           showNav ?
           <>
-            <div style={{height: 'calc(100vh - 48px)'}} className="z-10 flex nav-mobile absolute w-full bg-black bg-opacity-25 h-full top-12 left-0">
+            <div style={{height: 'calc(100vh - 48px)'}} className="z-50 flex nav-mobile absolute w-full bg-black bg-opacity-25 h-full top-12 left-0">
               <nav className="nav-mobile-blog sm:w-7/12 w-9/12 h-full bg-blue-600">
 
                 <div className="h-14 w-full flex pl-5 items-center"> 

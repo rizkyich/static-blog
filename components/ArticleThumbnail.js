@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const ArticleThumbnail = ({item, index, lastindex}) => {
+export const ArticleThumbnail = ({item, index, lastindex, recommend}) => {
   
   const numberWithPoint = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -14,7 +14,7 @@ export const ArticleThumbnail = ({item, index, lastindex}) => {
   }
   
   return (
-    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-4' : 'my-4'} ${item.img_url ? 'pb-4' : 'bg-gray-200 pb-0'} w-full flex h-40 md:h-72 border-b-2 border-blue-200 lg:border-b-0`}>
+    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-4' : 'my-4'} ${item.img_url ? 'pb-4' : 'bg-gray-200 pb-0'} w-full flex h-40 ${recommend ? 'md:h-40' : 'md:h-72'} border-b-2 border-blue-200 lg:border-b-0`}>
       {
         item.img_url ? 
           <div style={{'backgroundImage': 'url(' + item.img_url + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg h-full w-5/12" id="img-cont">
@@ -39,7 +39,10 @@ export const ArticleThumbnail = ({item, index, lastindex}) => {
 
                   <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-700">{item.title}</h1>
                   {/* <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{title.length > 45 ? title.slice(0, 40) + '...' : title}</h1> */}
-                  <div className="hidden md:block mt-1 leading-snug group-hover:text-blue-700 text-justify text-sm text-gray-700" dangerouslySetInnerHTML={{__html: item.content}}></div>
+                  {
+                    !recommend &&
+                    <div className="hidden md:block mt-1 leading-snug group-hover:text-blue-700 text-justify text-sm text-gray-700" dangerouslySetInnerHTML={{__html: item.content}}></div>
+                  }
                 </div>
               </a>
           </Link>
@@ -47,7 +50,7 @@ export const ArticleThumbnail = ({item, index, lastindex}) => {
           <div className="w-full h-full">
             <div className="w-full flex animate-pulse rounded-lg justify-between md:justify-start space-y-5 pt-4">
               <div className="bg-gray-300 rounded-lg mr-4 h-8 w-5/12"></div>
-              <div className="bg-gray-300 w-5/12 md:w-auto h-8 ml-auto md:ml-1"></div>
+              {/* <div className="bg-gray-300 w-5/12 md:w-auto h-8 ml-auto md:ml-1"></div> */}
             </div>
 
               <div className="transition-all duratioon-150 w-11/12 h-12 rounded-lg md:text-lg animate-pulse bg-gray-300"></div>
