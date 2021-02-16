@@ -60,7 +60,7 @@ const ArticleCont = ({children, data}) => {
 
   return (
     <>
-      <div className="w-11/12 mx-auto mb-6 lg:w-8/12 lg:mx-0 lg:h-26">
+      <div className="w-11/12 mx-auto mb-6 lg:w-7/12 lg:mx-0 lg:h-26">
         <div id="tgl-cat" className="mb-2 w-full flex md:justify-start">
           <p className="text-base text-blue-500 mr-4">{article.type}</p>
           <p className="transition-all duratioon-150 text-base group-hover:text-blue-500 md:w-auto">{article.date}</p>
@@ -82,13 +82,13 @@ const ArticleCont = ({children, data}) => {
       <div className="w-auto h-auto relative">
         {/* <div style={{'backgroundImage': 'url(https://blog.higo.id/img//blog/' + article.img_name + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg w-full h-64 lg:w-8/12 lg:h-96" id="img-cont">
         </div> */}
-        <img src={article.img_url} styles={{height: '32rem'}} className="lg:w-8/12 shadow-xl" />
+        <img src={article.img_url} styles={{height: '32rem'}} className="lg:w-7/12 shadow-xl" />
       </div>
 
 
       <div className="relative w-auto h-auto">  
         {children}
-        <div className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: article.content}}>
+        <div className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-7/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: article.content}}>
           
         </div>
       </div> 
@@ -98,12 +98,12 @@ const ArticleCont = ({children, data}) => {
         subContent.map((e, i) => {
           return (  
             e.type === 'content' ? 
-               <div key={i} className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: e.value}}></div>
+               <div key={i} className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-7/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: e.value}}></div>
             :
             e.type === 'image' ?
-              <img key={i} src={e.img_url} styles={{height: '32rem'}} className="lg:w-12/12 mx-auto lg:w-8/12 lg:mx-0 lg:pl-32" />
+              <img key={i} src={e.img_url} styles={{height: '32rem'}} className="lg:w-12/12 mx-auto lg:w-7/12 lg:mx-0 lg:pl-32" />
             :
-              <h3 key={i} className="content-article w-11/12 px-2 md:w-12/12 mx-auto h-auto mt-12 mb-6 text-justify lg:w-8/12 lg:mx-0 lg:pl-32 font-semibold text-lg">{e.value}</h3>
+              <h3 key={i} className="content-article w-11/12 px-2 md:w-12/12 mx-auto h-auto mt-12 mb-6 text-justify lg:w-7/12 lg:mx-0 lg:pl-32 font-semibold text-lg">{e.value}</h3>
           )
         })
       }
@@ -176,36 +176,36 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
 
   return (
     <section id="share-container" className="fixed z-30 w-full lg:w-auto left-0 bottom-0 lg:top-0 h-12 bg-gray-200 lg:bg-transparent lg:absolute lg:left-8 lg:pt-32">
-      <ul className="w-full h-full flex space-x-10 justify-center items-center lg:flex-col lg:space-x-0 lg:space-y-6">
+      <ul className="w-full h-full pt-2 lg:pt-0 flex space-x-10 justify-center items-center lg:flex-col lg:space-x-0 lg:space-y-6">
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('wa').then(_ => openSocmed('wa'))}>
-            <FontAwesomeIcon color="#016FFF" size="2x" icon={["fab", "whatsapp"]} />
+            <img className="w-8 h-8" src={'/logo-sosmed/whatsapp.png'}/>
             {
-              whatsappshare > 0 && <span className="absolute flex items-center justify-center top-0 left-6 w-6 h-6 rounded-full text-sm bg-red-500 text-white ">{whatsappshare}</span>
+              whatsappshare > 0 && <span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{whatsappshare}</span>
             }
           </button>
         </li>
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('fb').then(_ => openSocmed('fb'))}>
-            <FontAwesomeIcon color="#016FFF" size="2x" icon={["fab", "facebook"]} />
+            <img className="w-8 h-8" src={'/logo-sosmed/facebook.png'}/>
             {
-             facebookshare > 0 &&<span className="absolute flex items-center justify-center top-0 left-6 w-6 h-6 rounded-full text-sm bg-red-500 text-white ">{facebookshare}</span>
+             facebookshare > 0 &&<span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{facebookshare}</span>
             }
           </button>
         </li>
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('tw').then(_ => openSocmed('tw'))}>
-            <FontAwesomeIcon color="#016FFF" size="2x" icon={["fab", "twitter"]} />
+            <img className="w-8 h-8" src={'/logo-sosmed/twitter.png'}/>
             {
-             twittershare > 0 && <span className="absolute flex items-center justify-center top-0 left-6 w-6 h-6 rounded-full text-sm bg-red-500 text-white ">{twittershare}</span>          
+             twittershare > 0 && <span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{twittershare}</span>          
             }
           </button>
         </li>
         <li>
           <button className="relative focus:outline-none" onClick={() => ShareArticle('li').then(_ => openSocmed('li'))}>
-            <FontAwesomeIcon color="#016FFF" size="2x" icon={["fab", "linkedin"]} />
+            <img className="w-8 h-8" src={'/logo-sosmed/linkedin.png'}/>
             {
-              linkedinshare > 0 && <span className="absolute flex items-center justify-center top-0 left-6 w-6 h-6 rounded-full text-sm bg-red-500 text-white ">{linkedinshare}</span>
+              linkedinshare > 0 && <span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{linkedinshare}</span>
             }
           </button>
         </li>
@@ -837,7 +837,7 @@ const Article = ({}) => {
     </Head>
     <MainLayout>
       <main className="w-full h-auto py-8 md:py-12">
-        <div className="container mx-auto md:w-11/12 lg:w-full xl:px-28 relative 2xl:px-32 h-auto md:px-8 w-full">
+        <div className="container mx-auto md:w-11/12 lg:w-full relative h-auto md:px-8 lg:px-0 xl:px-10 2xl:px-20 w-full">
           {
             !response ?
             <div className="w-full h-screen flex justify-items-center items-center">

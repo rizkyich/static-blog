@@ -60,7 +60,7 @@ const CarouselItem = ({item}) => {
 
 export const NewArticle = ({articles, title}) => {
   return (
-    <div id="new-article" className="w-12/12 lg:w-full md:w-11/12 md:mx-auto h-80 md:h-xl">
+    <div id="new-article" className="w-12/12 lg:w-full md:w-11/12 md:mx-auto h-80 lg:h-lg xl:h-xl 2xl:h-2xl">
       <TitleText text={title}/>
       <div id="carousel-container" className="w-full h-full py-4">
         
@@ -80,7 +80,7 @@ export const NewArticle = ({articles, title}) => {
 
             {
               articles.map((item, index) => {
-                return (<div key="index" className="w-full sm:w-11/12 md:w-full sm:mx-auto h-80 md:h-xl white pb-10">
+                return (<div key="index" className="w-full sm:w-11/12 md:w-full sm:mx-auto h-80 lg:h-lg xl:h-xl 2xl:h-2xl white pb-10">
                   <div className="w-full h-full bg-gray-300">
                     <CarouselItem item={item}/>
                   </div>

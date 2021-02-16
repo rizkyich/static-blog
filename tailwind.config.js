@@ -6,8 +6,9 @@ module.exports = {
       height: {
         sm: '8px',
         md: '16px',
-        lg: '24px',
+        lg: '26rem',
         xl: '30rem',
+        '2xl': '35rem' 
        },
        colors: {
          cyan: {

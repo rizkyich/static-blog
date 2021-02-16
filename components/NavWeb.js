@@ -43,7 +43,7 @@ export default function NavBar () {
   }, [size])
 
   return (
-    <nav id="nav-web" className="relative py-3 px-6 md:px-16 xl:px-32 shadow-md flex justify-between">
+    <nav id="nav-web" className="relative py-3 px-6 md:px-16 xl:px-32 2xl:px-60 shadow-md flex justify-between">
       {/* <div className="container"> */}
         <a className="flex h-12/12 items-center" href="https://higo.id/">
           <img src="/logo-sosmed/higo.png" className="w-9/12"/>

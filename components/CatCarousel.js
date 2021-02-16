@@ -44,35 +44,35 @@ const CatContainer = ({catIdx, item}) => {
   
   return (
     <div className="mt-4 w-full md:flex flex-col lg:flex-row lg:space-x-4 xl:space-x-6">
-      <div className="w-full md-4 md:w-full lg:w-12/12 xl:w-12/12 h-auto relative" id="big-cat-1">
-        <img className="w-full sm:w-11/12 sm:mx-auto md:w-full  h-52 sm:h-80 md:h-96 xl:h-96 shadow-lg" src={item[0].img_url} />
+      <div className="w-full md-4 md:w-full lg:w-12/12 2xl:w-12/12 xl:w-12/12 2xl:w-10/12 h-auto relative" id="big-cat-1">
+        <img className="w-full sm:w-11/12 sm:mx-auto md:w-full h-52 sm:h-80 md:h-96 xl:h-96 2xl:h-xl shadow-lg" src={item[0].img_url} />
         <div className="w-11/12 md:w-full mx-auto">
           <div className="w-full mt-3 flex">
             <p className="text-blue-500 text-sm mr-4">{item[0].type}</p>
-            <p className="text-sm">{item[0].date}</p>
+            <p className="text-sm text-gray-500">{item[0].date}</p>
           </div>
 
           <Link href="/[...slug]" as={`/${item[0].redirect_link}`}>
             <a> 
-             <h1 className="transition-all leading-snug h-16 md:h-auto  duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[0].title}</h1>
+              <h1 className="transition-all leading-snug h-16 md:h-auto  duratioon-150 mt-1 md:text-lg group-hover:text-blue-500 2xl:text-xl font-bold">{item[0].title}</h1>
             </a>
           </Link>
 
-          <div className="hidden md:block md:h-16 lg:h-auto leading-snug md:mt-2 text-sm text-gray-700" dangerouslySetInnerHTML={{__html: item[0].content}}></div>
+          {/* <div className="hidden md:block md:h-16 lg:h-auto leading-snug md:mt-2 text-sm 2xl:text-base text-gray-700" dangerouslySetInnerHTML={{__html: item[0].content}}></div> */}
 
           <div id="views" className="flex lg:absolute bottom-0 left-0 items-center justify-start">
             <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-            <p className="text-sm text-gray-500">{numberWithPoint(item[0].view)} Views</p>
+            <p className="text-xs lg:text-sm text-gray-500">{numberWithPoint(item[0].view)} Views</p>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col w-11/12 md:w-full mt-6 lg:mt-0 xl:w-11/12 mx-auto">
+      <div className="flex flex-col w-11/12 md:w-full mt-6 lg:mt-0 xl:w-11/12 2xl:w-8/12 mx-auto">
 
         <div className="flex space-x-4 md:space-x-6 lg:space-x-4 xl:space-x-6">
 
           <div className="h-auto">
-            <img className="w-full h-32 sm:h-40 xl:h-40 shadow-lg" src={item[1].img_url} />
+            <img className="w-full h-32 sm:h-40 xl:h-40 2xl:h-56 shadow-lg" src={item[1].img_url} />
             <div className="w-full mx-auto">
               <div className="w-full mt-3 flex">
                 <p className="text-blue-500 text-sm mr-4">{item[1].type}</p>
@@ -80,18 +80,18 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[1].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all leading-snug h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[1].title.length > 40 ? item[1].title.slice(0, 40) + '...' : item[1].title }</h1>
+                  <h1 className="transition-all font-bold leading-snug h-20 md:h-16 duratioon-150 mt-1 text-sm md:text-base 2xl:text-lg  group-hover:text-blue-500">{item[1].title.length > 63 ? item[1].title.slice(0, 63) + '...' : item[1].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-                <p className="text-sm text-gray-500">{numberWithPoint(item[1].view)} Views</p>
+                <p className="text-xs lg:text-sm text-gray-500">{numberWithPoint(item[1].view)} Views</p>
               </div>
             </div>
           </div>
 
           <div className="h-auto">
-            <img className="w-full h-32 sm:h-40 xl:h-40 shadow-lg" src={item[2].img_url} />
+            <img className="w-full h-32 sm:h-40 xl:h-40 2xl:h-56 shadow-lg" src={item[2].img_url} />
             <div className="w-full mx-auto">
               <div className="w-full mt-3 flex">
                 <p className="text-blue-500 text-sm mr-4">{item[2].type}</p>
@@ -99,12 +99,12 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[2].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all h-20 md:h-16 duratioon-150 leading-snug mt-1 md:text-lg group-hover:text-blue-500">{item[2].title.length > 40 ? item[2].title.slice(0, 40) + '...' : item[2].title }</h1>
+                  <h1 className="transition-all font-bold h-20 md:h-16 duratioon-150 leading-snug mt-1 text-sm md:text-base 2xl:text-lg group-hover:text-blue-500">{item[2].title.length > 63 ? item[2].title.slice(0, 58) + '...' : item[2].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-                <p className="text-sm text-gray-500">{numberWithPoint(item[2].view)} Views</p>
+                <p className="text-xs lg:text-sm text-gray-500">{numberWithPoint(item[2].view)} Views</p>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ const CatContainer = ({catIdx, item}) => {
         <div className="hidden lg:flex mt-4 space-x-4 xl:space-x-6">
 
         <div className="h-auto">
-            <img className="w-full shadow-lg h-40 xl:h-40" src={item[3].img_url} />
+            <img className="w-full shadow-lg h-40 xl:h-40 2xl:h-56" src={item[3].img_url} />
             <div className="w-full mx-auto">
               <div className="w-full mt-3 flex">
                 <p className="text-blue-500 text-sm mr-4">{item[3].type}</p>
@@ -123,18 +123,18 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[3].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[3].title.length > 40 ? item[3].title.slice(0, 40) + '...' : item[3].title }</h1>
+                  <h1 className="transition-all font-bold h-20 md:h-16 duratioon-150 mt-1 md:text-base 2xl:text-lg group-hover:text-blue-500">{item[3].title.length > 63 ? item[3].title.slice(0, 60) + '...' : item[3].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-                <p className="text-sm text-gray-500">{numberWithPoint(item[3].view)} Views</p>
+                <p className="text-xs lg:text-sm text-gray-500">{numberWithPoint(item[3].view)} Views</p>
               </div>
             </div>
           </div>
 
           <div className="h-auto">
-            <img className="w-full h-40 xl:h-40 shadow-lg" src={item[4].img_url} />
+            <img className="w-full h-40 xl:h-40 shadow-lg 2xl:h-56" src={item[4].img_url} />
             <div className="w-11/12 md:w-full mx-auto">
               <div className="w-full mt-3 flex">
                 <p className="text-blue-500 text-sm mr-4">{item[4].type}</p>
@@ -142,12 +142,12 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[4].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[4].title.length > 40 ? item[4].title.slice(0, 40) + '...' : item[4].title }</h1>
+                  <h1 className="transition-all font-bold h-20 md:h-16 duratioon-150 mt-1 md:text-base 2xl:text-lg group-hover:text-blue-500">{item[4].title.length > 63 ? item[4].title.slice(0, 60) + '...' : item[4].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-                <p className="text-sm text-gray-500">{numberWithPoint(item[4].view)} Views</p>
+                <p className="text-xs lg:text-sm text-gray-500">{numberWithPoint(item[4].view)} Views</p>
               </div>
             </div>
           </div>
@@ -192,7 +192,7 @@ export const CatCarousel = ({businesstips, lifestyles, techs, hangouts, updates}
 
   return (
     <section className="w-full h-auto pt-8 mt-12 overflow-hidden">
-      <div className="container mx-auto md:w-11/12 lg:w-full xl:px-20 2xl:px-32 md:px-8 w-full h-auto">
+      <div className="container mx-auto md:w-11/12 lg:w-full md:px-8 lg:px-0 xl:px-10 2xl:px-20 w-full h-auto">
         <div className="w-full h-auto relative">
           <div className="flex md:hidden absolute top-2 right-4">
             {
