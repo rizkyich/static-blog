@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React, {useState, useEffect, useRef} from 'react'
 import {MainLayout} from '../components/MainLayout'
 import { useRouter } from 'next/router'
@@ -41,6 +42,7 @@ function useWindowSize() {
 }
 
 const ArticleCont = ({children, data}) => {
+  console.log(data, 'lll')
   const size = useWindowSize()
   const [windowSize, setWindowSize] = useState(size.width)
 
@@ -250,12 +252,11 @@ const Reaction = ({res, reloadArticle}) => {
         reacted ?
         arrReaction.map((e, i) => {
           return (<button key={i}  className={`focus:outline-none flex-col justify-center space-y-1 mx-6 my-2 ${e.action !== reactionStr ? 'opacity-50' : null}`}>
-            {/* <Image
+            <img
               src={`/emoticon/emot_${e.action}.png`}
               alt={e.action}
-              width={80}
-              height={80}
-            /> */}
+              className="w-24 h-24"
+            />
             <p>{Math.round((e.val === 0 ? total : e.val / total) * 100)}%</p>
             <p>{e.action[0].toUpperCase() + e.action.slice(1, e.action.length)}</p>
           </button>)
@@ -263,12 +264,11 @@ const Reaction = ({res, reloadArticle}) => {
         :
         arrReaction.map((e, i) => {
           return (<button key={i} onClick={() => updateReaction(e.action).then(_=> reloadArticle())} className="focus:outline-none flex-col justify-center space-y-1 mx-6 my-2">
-            {/* <Image
+             <img
               src={`/emoticon/emot_${e.action}.png`}
               alt={e.action}
-              width={80}
-              height={80}
-            /> */}
+              className="w-24 h-24"
+            />
             <p>{Math.round((e.val === 0 ? total : e.val / total) * 100)}%</p>
             <p>{e.action[0].toUpperCase() + e.action.slice(1, e.action.length)}</p>
           </button>)
@@ -425,6 +425,7 @@ const CommentItem = ({keyId, item, goReload}) => {
     // const ref = e.currentTarget.id
     if (e === 'base') {
       setOpenReply(true)
+      setOpenReplyComment(-1)
     } else {
       setOpenReplyComment(e)
       setOpenReply(false)
@@ -803,7 +804,7 @@ const RecommendArticle = ({type, articles, idArr}) => {
   )
 }
 
-const Article = ({res}) => {
+const Article = ({}) => {
   const router = useRouter()
   const {slug} = router.query 
   const [response, setResponse] = useState(null)
@@ -830,6 +831,10 @@ const Article = ({res}) => {
   }
 
   return (
+    <>
+    <Head>
+      <title>{slug.split('-').map(a => a.charAt(0).toUpperCase() + a.substr(1)).join(' ')}</title>
+    </Head>
     <MainLayout>
       <main className="w-full h-auto py-8 md:py-12">
         <div className="container mx-auto md:w-11/12 lg:w-full xl:px-28 relative 2xl:px-32 h-auto md:px-8 w-full">
@@ -854,10 +859,9 @@ const Article = ({res}) => {
 
       </main>
     </MainLayout>
+    </>
   )
 }
-
-
 
 export default Article
 

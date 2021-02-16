@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Footer = () => {
   const [email, setEmail] = useState('')
@@ -18,10 +18,19 @@ export const Footer = () => {
         data: formData
       })
         .then(response => {
-          NotificationManager.success('Thanks fot Submitting', 'Success', 2500, true)
+          toast.success("Success\nThanks for Submitting", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          })
+          // NotificationManager.success('Thanks fot Submitting', 'Success', 2500, true)
         })
         .catch(err => {
-          NotificationManager.error('Something is wrong', 'Error', 2500, true)
+          toast.error("Server not responding", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          })
+          // NotificationManager.error('Something is wrong', 'Error', 2500, true)
+        })
+        .finally(_ => {
+          setEmail('')
         })
   }
   
@@ -63,34 +72,35 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+
       <div className="bottom-banget">
-         <div className="icon">
-          {/* <div id="logo-1" v-if="windowWidth > 990">
-            <img style="width: 75%;" src="@/assets/HIGO-Logo-25-min.png" alt />
-          </div> */}
+      <div className="icon">
+          <div id="logo-1" v-if="windowWidth > 990">
+            <img style={{width: '75%'}} src="/logo-sosmed/HIGO-Logo-25-min.png" alt="higo logo" />
+          </div>
           <a
             href="https://www.linkedin.com/company/pt-higo-fitur-indonesia/"
             target="blank"
             className="sosmed"
           >
-            <FontAwesomeIcon color="white" size="2x" icon={["fab", "linkedin"]} />
+            <img src="/logo-sosmed/linkedin-min.png" alt="linkedin" />
           </a>
           <a href="https://www.facebook.com/HIGOSPOTINDONESIA/" target="blank" className="sosmed">
-            <FontAwesomeIcon color="white" size="2x" icon={["fab", "facebook"]} />
+            <img src="/logo-sosmed/facebook-w (1)-min.png" alt="facebook" />
           </a>
           <a href="https://www.instagram.com/higospot/?hl=en" target="blank" className="sosmed">
-            <FontAwesomeIcon color="white" size="2x" icon={["fab", "instagram"]} />
+            <img src="/logo-sosmed/instagram-logo-w (1)-min.png" alt="instagram" />
           </a>
           <a href="https://twitter.com/HIGO_spot" target="blank" className="sosmed">
-            <FontAwesomeIcon color="white" size="2x" icon={["fab", "twitter"]} />
+            <img src="/logo-sosmed/twitter-w-min.png" alt="twitter" />
           </a>
-        </div>Name 
+        </div>
         <p
           style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '13px'}}
         >&copy; PT Higo Fitur Indonesia 2020</p>
       </div>
     </div>
-    <NotificationContainer/>
+    <ToastContainer/>
   </div>
   )
 }

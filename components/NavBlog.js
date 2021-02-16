@@ -249,11 +249,11 @@ export const NavBlog = ({getNavOpen}) => {
                       <a>Business Tips</a>
                     </Link>
                   </li>
-                  <li className={`transition-all mx-2 my-2 lg:text-base cursor-pointer text-sm`}>
+                  {/* <li className={`transition-all mx-2 my-2 lg:text-base cursor-pointer text-sm`}>
                     <Link href="/video">
                       <a>Video</a>
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </nav>
               <div onClick={toggleNav} className="sm:w-5/12 w-3/12 h-full"></div>

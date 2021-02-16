@@ -32,7 +32,7 @@ const Hangout = ({initData}) => {
   return (
     <MainLayout>
       <main className="w-full h-auto py-8 md:py-12">
-        <div className="container mx-auto relative md:px-8 lg:px-8 xl:px-28 2xl:px-40">
+        <div className="container mx-auto relative md:px-8 lg:px-8 xl:px-20 2xl:px-32">
           <div id="new article" className="w-12/12 lg:w-8/12 h-auto">
             <NewArticle title={'Artikel Terbaru'} articles={arrArticle.arr_new_article} className="h-80"/>
             <RecentArticles idArr={arrArticle.article_id} articles={arrArticle.arr_current_article}/>

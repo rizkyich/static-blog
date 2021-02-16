@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const PopularItems = ({item, index, lastindex}) => { 
@@ -28,10 +29,13 @@ export const PopularItems = ({item, index, lastindex}) => {
           }
           {
             item.title ?
-            <>
-              <h1 className="hidden lg:block xl:hidden transition-all duratioon-150 md:text-base leading-snug md:leading-snug group-hover:text-blue-500">{item.title.length > 22 ? item.title.slice(0, 22) + '...' : item.title}</h1>
-              <h1 className="block lg:hidden xl:block transition-all duratioon-150 md:text-base leading-snug md:leading-snug group-hover:text-blue-500">{item.title.length > 50 ? item.title.slice(0, 45) + '...' : item.title}</h1>
-            </>
+            <Link href="/[...slug]" as={`/${item.redirect_link}`}>
+              <a>
+                <h1 className="hidden lg:block xl:hidden transition-all duratioon-150 md:text-base leading-snug md:leading-snug group-hover:text-blue-500">{item.title.length > 22 ? item.title.slice(0, 22) + '...' : item.title}</h1>
+                <h1 className="hidden md:block lg:hidden xl:block transition-all duratioon-150 md:text-base leading-snug md:leading-snug group-hover:text-blue-500">{item.title.length > 50 ? item.title.slice(0, 45) + '...' : item.title}</h1>
+                <h1 className="block md:hidden transition-all duratioon-150 md:text-base leading-snug md:leading-snug group-hover:text-blue-500">{item.title}</h1>
+              </a>
+            </Link>
             :
             <h1 className="block lg:hidden xl:block transition-all duratioon-150 w-full h-10 bg-gray-400 rounded-lg animate-pulse"></h1>
           }
@@ -39,7 +43,7 @@ export const PopularItems = ({item, index, lastindex}) => {
 
         {
           item.view &&
-          <div id="views" className="flex items-center justify-start">
+          <div id="views" className="flex items-center justify-end">
               <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
               <p className="text-xs text-gray-500">{numberWithPoint(item.view)} Views</p>
           </div>

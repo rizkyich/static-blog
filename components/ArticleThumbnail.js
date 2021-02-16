@@ -14,10 +14,10 @@ export const ArticleThumbnail = ({item, index, lastindex, recommend}) => {
   }
   
   return (
-    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-4' : 'my-4'} ${item.img_url ? 'pb-4' : 'bg-gray-200 pb-0'} w-full flex h-40 ${recommend ? 'md:h-40' : 'md:h-72'} border-b-2 border-blue-200 lg:border-b-0`}>
+    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-4' : 'my-4'} ${item.img_url ? 'pb-4' : 'bg-gray-200 pb-0'} w-full flex h-40 ${recommend ? 'md:h-40' : 'md:h-56'} border-b-2 border-blue-200 lg:border-b-0`}>
       {
         item.img_url ? 
-          <div style={{'backgroundImage': 'url(' + item.img_url + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg h-full w-5/12" id="img-cont">
+          <div style={{'backgroundImage': 'url(' + item.img_url + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg h-full w-5/12 md:w-4/12" id="img-cont">
             {/* <img/> */}
           </div>
         :
@@ -25,7 +25,7 @@ export const ArticleThumbnail = ({item, index, lastindex, recommend}) => {
             {/* <img/> */}
           </div>
       }
-      <div className="h-full w-7/12 pl-2 md:pl-4 flex flex-col justify-between" id="item-info">
+      <div className="h-full w-7/12 md:w-8/12 pl-2 md:pl-4 flex flex-col justify-between" id="item-info">
 
         {
           item.redirect_link ?

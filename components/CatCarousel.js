@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import Link from  'next/link'
 import TitleText from '../components/TitleText'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -50,7 +51,12 @@ const CatContainer = ({catIdx, item}) => {
             <p className="text-blue-500 text-sm mr-4">{item[0].type}</p>
             <p className="text-sm">{item[0].date}</p>
           </div>
-          <h1 className="transition-all leading-snug h-16 md:h-auto  duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[0].title}</h1>
+
+          <Link href="/[...slug]" as={`/${item[0].redirect_link}`}>
+            <a> 
+             <h1 className="transition-all leading-snug h-16 md:h-auto  duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[0].title}</h1>
+            </a>
+          </Link>
 
           <div className="hidden md:block md:h-16 lg:h-auto leading-snug md:mt-2 text-sm text-gray-700" dangerouslySetInnerHTML={{__html: item[0].content}}></div>
 
@@ -72,7 +78,11 @@ const CatContainer = ({catIdx, item}) => {
                 <p className="text-blue-500 text-sm mr-4">{item[1].type}</p>
                 {/* <p className="text-sm">{item[1].date}</p> */}
               </div>
-              <h1 className="transition-all leading-snug h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[1].title.length > 40 ? item[1].title.slice(0, 40) + '...' : item[1].title }</h1>
+              <Link href="/[...slug]" as={`/${item[1].redirect_link}`}>
+                <a>
+                  <h1 className="transition-all leading-snug h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[1].title.length > 40 ? item[1].title.slice(0, 40) + '...' : item[1].title }</h1>
+                </a>
+              </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
                 <p className="text-sm text-gray-500">{numberWithPoint(item[1].view)} Views</p>
@@ -87,7 +97,11 @@ const CatContainer = ({catIdx, item}) => {
                 <p className="text-blue-500 text-sm mr-4">{item[2].type}</p>
                 {/* <p className="text-sm">{item[1].date}</p> */}
               </div>
-              <h1 className="transition-all h-20 md:h-16 duratioon-150 leading-snug mt-1 md:text-lg group-hover:text-blue-500">{item[2].title.length > 40 ? item[2].title.slice(0, 40) + '...' : item[2].title }</h1>
+              <Link href="/[...slug]" as={`/${item[2].redirect_link}`}>
+                <a>
+                  <h1 className="transition-all h-20 md:h-16 duratioon-150 leading-snug mt-1 md:text-lg group-hover:text-blue-500">{item[2].title.length > 40 ? item[2].title.slice(0, 40) + '...' : item[2].title }</h1>
+                </a>
+              </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
                 <p className="text-sm text-gray-500">{numberWithPoint(item[2].view)} Views</p>
@@ -107,7 +121,11 @@ const CatContainer = ({catIdx, item}) => {
                 <p className="text-blue-500 text-sm mr-4">{item[3].type}</p>
                 {/* <p className="text-sm">{item[1].date}</p> */}
               </div>
-              <h1 className="transition-all h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[3].title.length > 40 ? item[3].title.slice(0, 40) + '...' : item[3].title }</h1>
+              <Link href="/[...slug]" as={`/${item[3].redirect_link}`}>
+                <a>
+                  <h1 className="transition-all h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[3].title.length > 40 ? item[3].title.slice(0, 40) + '...' : item[3].title }</h1>
+                </a>
+              </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
                 <p className="text-sm text-gray-500">{numberWithPoint(item[3].view)} Views</p>
@@ -122,7 +140,11 @@ const CatContainer = ({catIdx, item}) => {
                 <p className="text-blue-500 text-sm mr-4">{item[4].type}</p>
                 {/* <p className="text-sm">{item[1].date}</p> */}
               </div>
-              <h1 className="transition-all h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[4].title.length > 40 ? item[4].title.slice(0, 40) + '...' : item[4].title }</h1>
+              <Link href="/[...slug]" as={`/${item[4].redirect_link}`}>
+                <a>
+                  <h1 className="transition-all h-20 md:h-16 duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{item[4].title.length > 40 ? item[4].title.slice(0, 40) + '...' : item[4].title }</h1>
+                </a>
+              </Link>
               <div id="views" className="flex items-center justify-start">
                 <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
                 <p className="text-sm text-gray-500">{numberWithPoint(item[4].view)} Views</p>
@@ -154,7 +176,7 @@ export const CatCarousel = ({businesstips, lifestyles, techs, hangouts, updates}
     } 
 
     return () => clearTimeout(timer)
-  }, [size])
+  }, [size, catIndex])
 
   const changeSlide = (operator) => {
     let idx = catIndex
@@ -170,7 +192,7 @@ export const CatCarousel = ({businesstips, lifestyles, techs, hangouts, updates}
 
   return (
     <section className="w-full h-auto pt-8 mt-12 overflow-hidden">
-      <div className="container mx-auto md:w-11/12 lg:w-full xl:px-20 2xl:px-40 md:px-8 w-full h-auto">
+      <div className="container mx-auto md:w-11/12 lg:w-full xl:px-20 2xl:px-32 md:px-8 w-full h-auto">
         <div className="w-full h-auto relative">
           <div className="flex md:hidden absolute top-2 right-4">
             {
@@ -217,8 +239,10 @@ export const CatCarousel = ({businesstips, lifestyles, techs, hangouts, updates}
                 <CatContainer item={businesstips} className="cat-carousel" catIdx={catIndex}/>
               </div>
 
-        <div id="link-video" className="w-full mt-8">
-          <p className="text-sm w-16 ml-auto mr-4 text-blue-700">View All</p>
+        <div id="link-cat" className="w-full mt-8 flex justify-end">
+          <Link className="ml-auto w-full" href={catIndex === 0 ? '/higoes-update' : catIndex === 1 ? '/hangout' : catIndex === 2 ? '/lifestyle' : catIndex === 3 ? '/tech-social-media' : '/business-tips' }>
+            <a className="text-sm w-16 ml-auto mr-4 text-blue-700">View All</a>
+          </Link>
         </div>
 
         </div>

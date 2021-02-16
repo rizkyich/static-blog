@@ -7,8 +7,7 @@ body {
   scroll-behavior: smooth;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
 a {
@@ -35,6 +34,30 @@ a {
   transform: translateX(-83.333333%);
   animation: slide-in forwards .5s;
   animation-timing-function: cubic-bezier(.51,.92,.24,1.15);
+}
+
+#nav-web {
+  min-height: 50px;
+  /* display: flex; */
+  /* justify-content: center; */
+  text-align: center;
+  color: white;
+  /* transition: all 0.5s ease-out; */
+  /* position: fixed; */
+  background: url("/logo-sosmed/Rectangle 203-min.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  z-index: 999999;
+  border: none;
+}
+
+.nav-open {
+  background: rgb(32,107,248);
+background: -moz-linear-gradient(29deg, rgba(32,107,248,1) 0%, rgba(34,156,244,1) 83%, rgba(70,213,239,1) 100%);
+background: -webkit-linear-gradient(29deg, rgba(32,107,248,1) 0%, rgba(34,156,244,1) 83%, rgba(70,213,239,1) 100%);
+background: linear-gradient(29deg, rgba(32,107,248,1) 0%, rgba(34,156,244,1) 83%, rgba(70,213,239,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#206bf8",endColorstr="#46d5ef",GradientType=1);
 }
 
 .scrolled {
@@ -180,7 +203,7 @@ a {
   height: auto;
   border: none;
   outline: none;
-  font-size: 1.02rem;
+  font-size: 1.15rem;
   width: 75%;
 }
 

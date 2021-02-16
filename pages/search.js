@@ -3,6 +3,7 @@ import {MainLayout} from '../components/MainLayout'
 import { useRouter } from "next/router";
 import {RecentArticles} from '../components/RecentArticles'
 import { LoadMore } from '../components/LoadMore'
+import TitleText from '../components/TitleText'
 
 export default function Search() {
   const router = useRouter()
@@ -55,9 +56,20 @@ export default function Search() {
               <>
               {/* <p>halo</p>
               <p>{JSON.stringify(response.arr_article)}</p> */}
-              <RecentArticles  keyword={param.query.q} articles={arrArticle}/>
               {
-                !response.last_data &&
+                response.arr_article[0] ?
+                <RecentArticles  keyword={param.query.q} articles={arrArticle}/>
+                :
+                <div className="w-full h-screen pt-4">
+                  <TitleText text={'Hasil Pencarian tidak ditemukan'}/>
+                  <div className="w-full h-full flex flex-col space-y-10 pt-40 items-center">
+                    <p className="text-xl text-gray-500">Artikel yang terkait dengan <b className="text-gray-900">{param.query.q}</b> tidak ditemukan</p>
+                    <button onClick={() => router.back()} className="text-xl px-12 py-2 rounded-lg bg-blue-600 hover:bg-blue-900 text-white">Kembali</button>
+                  </div>
+                </div>
+              }
+              {
+                (!response.last_data && response.arr_article[0]) &&
                 <LoadMore  loading={isLoading} getLoadMore={async () => setResponse(await fetchData(strId))}/> 
               }
               </>
