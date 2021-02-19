@@ -60,7 +60,7 @@ const ArticleCont = ({children, data}) => {
 
   return (
     <>
-      <div className="w-11/12 mx-auto mb-6 lg:w-7/12 lg:mx-0 lg:h-26">
+      <div className="w-11/12 mx-auto mb-6 lg:w-8/12 lg:pr-20 lg:mx-0 lg:h-26">
         <div id="tgl-cat" className="mb-2 w-full flex md:justify-start">
           <p className="text-base text-blue-500 mr-4">{article.type}</p>
           <p className="transition-all duratioon-150 text-base group-hover:text-blue-500 md:w-auto">{article.date}</p>
@@ -76,19 +76,18 @@ const ArticleCont = ({children, data}) => {
             <p className="text-sm text-gray-500">{numberWithPoint(article.view)} Views</p>
           </div>
         </div>
-      </div>
+    
 
 
-      <div className="w-auto h-auto relative">
+      <div className="w-auto my-3 h-auto relative">
         {/* <div style={{'backgroundImage': 'url(https://blog.higo.id/img//blog/' + article.img_name + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg w-full h-64 lg:w-8/12 lg:h-96" id="img-cont">
         </div> */}
-        <img src={article.img_url} styles={{height: '32rem'}} className="lg:w-7/12 shadow-xl" />
+        <img src={article.img_url} styles={{height: '28rem'}} className="w-full shadow-xl" />
       </div>
 
 
-      <div className="relative w-auto h-auto">  
-        {children}
-        <div className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-7/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: article.content}}>
+      <div className="relative w-auto h-auto">
+        <div className="content-article w-11/12 md:w-full mx-auto h-auto mt-6 text-justify lg:mx-0" dangerouslySetInnerHTML={{__html: article.content}}>
           
         </div>
       </div> 
@@ -98,17 +97,17 @@ const ArticleCont = ({children, data}) => {
         subContent.map((e, i) => {
           return (  
             e.type === 'content' ? 
-               <div key={i} className="content-article px-2 w-11/12 md:w-12/12 mx-auto h-auto mt-6 text-justify lg:w-7/12 lg:mx-0 lg:pl-32" dangerouslySetInnerHTML={{__html: e.value}}></div>
+               <div key={i} className="content-article w-11/12 md:w-full mx-auto h-auto mt-6 text-justify  lg:mx-0" dangerouslySetInnerHTML={{__html: e.value}}></div>
             :
             e.type === 'image' ?
-              <img key={i} src={e.img_url} styles={{height: '32rem'}} className="lg:w-12/12 mx-auto lg:w-7/12 lg:mx-0 lg:pl-32" />
+              <img key={i} src={e.img_url} styles={{height: '32rem'}} className="lg:w-full mx-auto lg:mx-0" />
             :
-              <h3 key={i} className="content-article w-11/12 px-2 md:w-12/12 mx-auto h-auto mt-12 mb-6 text-justify lg:w-7/12 lg:mx-0 lg:pl-32 font-semibold text-lg">{e.value}</h3>
+              <h3 key={i} className="content-article w-11/12 md:w-full mx-auto h-auto mt-12 mb-6 text-justify lg:mx-0 font-semibold text-lg">{e.value}</h3>
           )
         })
       }
 
-
+      </div>
     </>
   )
 }
@@ -175,7 +174,7 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
   }
 
   return (
-    <section id="share-container" className="fixed z-30 w-full lg:w-auto left-0 bottom-0 lg:top-0 h-12 bg-gray-200 lg:bg-transparent lg:absolute lg:left-8 lg:pt-32">
+    <section id="share-container" className="fixed z-30 w-full lg:w-auto left-0 bottom-0 h-12 bg-gray-200 lg:bg-transparent lg:sticky lg:left-0 lg:top-40">
       <ul className="w-full h-full pt-2 lg:pt-0 flex space-x-10 justify-center items-center lg:flex-col lg:space-x-0 lg:space-y-6">
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('wa').then(_ => openSocmed('wa'))}>
@@ -246,8 +245,8 @@ const Reaction = ({res, reloadArticle}) => {
   }
   
   return (
-    <section className="mt-16 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:ml-0 border-t-2 border-gray-300 py-12 pt-8 flex justify-center items-center flex-wrap ">
-      
+    <section className="mt-16 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:pr-20 lg:ml-0 pb-12  flex justify-center items-center flex-wrap ">
+      <span className="w-full h-0.5 bg-gray-300 mb-16"></span>
       {
         reacted ?
         arrReaction.map((e, i) => {
@@ -267,7 +266,7 @@ const Reaction = ({res, reloadArticle}) => {
              <img
               src={`/emoticon/emot_${e.action}.png`}
               alt={e.action}
-              className="w-24 h-24"
+              className="w-20 h-20"
             />
             <p>{Math.round((e.val === 0 ? total : e.val / total) * 100)}%</p>
             <p>{e.action[0].toUpperCase() + e.action.slice(1, e.action.length)}</p>
@@ -656,12 +655,11 @@ const CommentSection = ({data, arrCommentId, isLastData, keyId, reloadArticle, c
   }
 
   const getReloadArticle = () => {
-    console.log('yak')
     reloadArticle()
   }
 
   return (
-    <div className="relative mt-4 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:ml-0">
+    <div className="relative mt-4 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:pr-20 lg:ml-0">
       <h3 className="w-full border-b-2 border-gray-300 font-semibold">{commentLength} Komentar</h3>
 
       <form onSubmit={e => handleSubmit(e).then(_ => finishReplyComment())} className="flex relative flex-col justify-end items-end w-full h-auto border-b-2 border-gray-300 pb-4">
@@ -845,13 +843,16 @@ const Article = ({}) => {
             </div>
             :
             <>
-              <ArticleCont data={response}>
-                <ShareArticle res={response.article} slug={slug[0]} reloadArticle={async () => setResponse(await fetchData())}/>
-              </ArticleCont>
+              <div id="main-cont" className="relative">
+                <div className="absolute w-auto h-full lg:-left-20 xl:-left-24 pt-40">
+                  <ShareArticle res={response.article} slug={slug[0]} reloadArticle={async () => setResponse(await fetchData())}/>
+                </div>
+                <ArticleCont data={response}/>
+                <PopularArticle sticky={true} articles={response.arr_popular_article}/>
+              </div>
 
               <Reaction res={response.article} reloadArticle={async () => setResponse(await fetchData())}/>
               <CommentSection data={response.arr_comment} arrCommentId={response.comment_id} isLastData={response.last_data} reloadArticle={reloadA} keyId={response.article.id} commentLength={response.count_comment}/>
-              <PopularArticle articles={response.arr_popular_article}/>
               <RecommendArticle isLastData={response.last_data} idArr={response.article_id} type={response.article.type} articles={response.arr_recommend_article}/>
             </>
           }

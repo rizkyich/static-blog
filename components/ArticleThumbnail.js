@@ -14,7 +14,7 @@ export const ArticleThumbnail = ({item, index, lastindex, recommend}) => {
   }
   
   return (
-    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-6' : 'my-6'} ${item.img_url ? 'pb-4' : 'bg-gray-200 pb-0'} w-full flex h-40 ${recommend ? 'xl:h-40' : 'xl:h-56 lg:h-44 2xl:h-64'} border-b-2 border-blue-200 lg:border-b-0`}>
+    <div className={`${index === 0 ? 'mb-4' : index === lastindex ? 'mt-6' : 'my-6'} ${item.img_url ? 'pb-4' : 'bg-gray-200 pb-0'} w-full flex h-40 ${recommend ? 'xl:h-40' : 'xl:h-48 lg:h-44 2xl:h-56'} border-b-2 border-blue-200 lg:border-b-0`}>
       {
         item.img_url ? 
           <div style={{'backgroundImage': 'url(' + item.img_url + ')', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="shadow-lg h-full w-5/12 md:w-5/12" id="img-cont">
@@ -33,15 +33,15 @@ export const ArticleThumbnail = ({item, index, lastindex, recommend}) => {
               <a className="group">
                 <div className="w-full h-full">
                   <div id="tgl-cat" className="w-full flex justify-between md:justify-start">
-                    <p className="text-xs xl:text-base text-blue-500 group-hover:text-blue-700  md:mr-4  xl:mr-6 w-18">{item.type}</p>
-                    <p className="transition-all text-gray-500  duratioon-150 text-xs xl:text-base group-hover:text-blue-500 w-20 md:w-auto ml-auto md:ml-1">{handleDate(item.date)}</p>
+                    <p className="text-xs xl:text-sm font-light 2xl:text-base text-blue-500 group-hover:text-blue-700  md:mr-4  xl:mr-6 w-18">{item.type}</p>
+                    <p className="transition-all text-gray-500 font-light duratioon-150 text-xs xl:text-sm 2xl:text-base group-hover:text-blue-500 w-20 md:w-auto ml-auto md:ml-1">{handleDate(item.date)}</p>
                   </div>
 
                   <h1 className="transition-all duratioon-150 font-bold my-3 lg:my-2 2xl:my-4 md:text-base xl:text-xl group-hover:text-blue-700">{item.title}</h1>
                   {/* <h1 className="transition-all duratioon-150 mt-1 md:text-lg group-hover:text-blue-500">{title.length > 45 ? title.slice(0, 40) + '...' : title}</h1> */}
                   {
                     !recommend &&
-                    <div className="hidden md:block mt-1 leading-snug group-hover:text-blue-700 text-justify md:text-xs lg:text-xs xl:text-base text-gray-700" dangerouslySetInnerHTML={{__html: item.content}}></div>
+                    <div className="hidden md:block leading-snug group-hover:text-blue-700 text-justify md:text-xs lg:text-xs xl:text-sm 2xl:text-base text-gray-700" dangerouslySetInnerHTML={{__html: item.content}}></div>
                   }
                 </div>
               </a>
@@ -63,7 +63,7 @@ export const ArticleThumbnail = ({item, index, lastindex, recommend}) => {
           item.view &&
           <div id="views" className="flex items-center justify-end lg:justify-start">
             <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
-            <p className="xl:text-sm text-xs text-gray-500">{numberWithPoint(item.view)} Views</p>
+            <p className="xl:text-sm text-xs font-light text-gray-500">{numberWithPoint(item.view)} Views</p>
           </div>
         }
       </div>

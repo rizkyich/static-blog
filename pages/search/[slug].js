@@ -29,7 +29,7 @@ export default function Search() {
   return (
     <MainLayout>
      <main className="w-full h-auto py-8 md:py-12">
-        <div className="container mx-auto relative md:px-8 lg:px-40 xl:px-96 2xl:px-96">
+        <div className="container mx-auto pt-12 relative md:px-8 lg:px-20 xl:px-20 2xl:px-20">
           
           {
             response ? 

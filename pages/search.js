@@ -50,9 +50,9 @@ export default function Search() {
   return (
     <MainLayout>
      <main className="w-full h-auto py-4">
-        <div className="container mx-auto relative md:px-8 lg:px-40 xl:px-96 2xl:px-96">
+        <div className="container mx-auto pt-8 relative md:px-8 lg:px-40 xl:px-60 2xl:px-60">
           {
-            response && 
+            response ?
               <>
               {/* <p>halo</p>
               <p>{JSON.stringify(response.arr_article)}</p> */}
@@ -73,6 +73,8 @@ export default function Search() {
                 <LoadMore  loading={isLoading} getLoadMore={async () => setResponse(await fetchData(strId))}/> 
               }
               </>
+              :
+              <div className="w-full h-screen"></div>
           }
         </div>          
       </main>
