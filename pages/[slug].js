@@ -42,7 +42,7 @@ function useWindowSize() {
   return windowSize;
 }
 
-const ArticleCont = ({children, data}) => {
+const ArticleCont = ({children, data, tag}) => {
   console.log(data, 'lll')
   const size = useWindowSize()
   const [windowSize, setWindowSize] = useState(size.width)
@@ -88,7 +88,7 @@ const ArticleCont = ({children, data}) => {
 
 
       <div className="relative w-auto h-auto">
-        <div className="content-article w-11/12 md:w-full mx-auto h-auto mt-6 text-justify lg:mx-0" dangerouslySetInnerHTML={{__html: article.content}}>
+        <div className="content-article w-12/12 md:w-full mx-auto h-auto mt-6 text-justify lg:mx-0" dangerouslySetInnerHTML={{__html: article.content}}>
           
         </div>
       </div> 
@@ -98,16 +98,32 @@ const ArticleCont = ({children, data}) => {
         subContent.map((e, i) => {
           return (  
             e.type === 'content' ? 
-               <div key={i} className="content-article w-11/12 md:w-full mx-auto h-auto mt-6 text-justify  lg:mx-0" dangerouslySetInnerHTML={{__html: e.value}}></div>
+               <div key={i} className="content-article w-12/12 md:w-full mx-auto h-auto mt-6 text-justify  lg:mx-0" dangerouslySetInnerHTML={{__html: e.value}}></div>
             :
             e.type === 'image' ?
               <img key={i} src={e.img_url} styles={{height: '32rem'}} className="lg:w-full mx-auto lg:mx-0" />
             :
-              <h3 key={i} className="content-article w-11/12 md:w-full mx-auto h-auto mt-12 mb-6 text-justify lg:mx-0 font-semibold text-lg">{e.value}</h3>
+              <h3 key={i} className="content-article w-12/12 md:w-full mx-auto h-auto mt-12 mb-6 text-justify lg:mx-0 font-semibold text-lg">{e.value}</h3>
           )
         })
       }
 
+
+        <div className="w-full h-auto mt-12">
+        <h3 className="text-lg font-bold mb-6">Topik Terkait</h3>
+          <div className="flex flex-wrap justify-center md:justify-start items-center">
+            {
+              tag ? 
+              tag.map((e, i) => (
+                <button onClick={() => router.push(`/search?q=${e}`)} key={i} className={`${i === 0 ? 'mr-3' : 'mx-3'} my-2 px-3 py-0.5 border-2 border-gray-700 rounded-2xl`}>
+                  <p className="text-blue-700">{e}</p>
+                </button>
+              ))
+              :
+              <div className="w-3 h-1 bg-gray-600"></div>
+            }
+          </div>
+        </div>
       </div>
     </>
   )
@@ -175,8 +191,8 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
   }
 
   return (
-    <section id="share-container" className="fixed z-30 w-full lg:w-auto left-0 bottom-0 h-12 bg-gray-200 lg:bg-transparent lg:sticky lg:left-0 lg:top-56">
-      <ul className="w-full h-full pt-2 lg:pt-0 flex space-x-10 justify-center items-center lg:flex-col lg:space-x-0 lg:space-y-6">
+    <section id="share-container" className="fixed z-30 w-full xl:w-auto left-0 bottom-0 h-12 bg-gray-200 xl:bg-transparent xl:sticky xl:left-0 xl:top-56">
+      <ul className="w-full h-full pt-2 xl:pt-0 flex space-x-10 justify-center items-center xl:flex-col xl:space-x-0 xl:space-y-6">
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('wa').then(_ => openSocmed('wa'))}>
             <img className="w-8 h-8  2xl:w-10 2xl:h-10" src={'/logo-sosmed/whatsapp.png'}/>
@@ -246,7 +262,7 @@ const Reaction = ({res, reloadArticle}) => {
   }
   
   return (
-    <section className="mt-16 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:pr-20 lg:ml-0 pb-12  flex justify-center items-center flex-wrap ">
+    <section className="mt-12 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:pr-20 lg:ml-0 pb-12  flex justify-center items-center flex-wrap ">
       <span className="w-full h-0.5 bg-gray-300 mb-16"></span>
       {
         reacted ?
@@ -863,10 +879,9 @@ const Article = ({}) => {
                 <div className="absolute w-auto h-full lg:-left-20 xl:-left-24 2xl:-left-28 pt-40">
                   <ShareArticle res={response.article} slug={slug[0]} reloadArticle={async () => setResponse(await fetchData())}/>
                 </div>
-                <ArticleCont data={response}/>
+                <ArticleCont data={response} tag={['tiktok', 'instagram', 'facebook', 'lifestyle', 'children', 'castlevania']}/>
                 <PopularArticle sticky={true} articles={response.arr_popular_article}/>
               </div>
-
               <Reaction res={response.article} reloadArticle={async () => setResponse(await fetchData())}/>
               <CommentSection data={response.arr_comment} arrCommentId={response.comment_id} isLastData={response.last_data} reloadArticle={reloadA} keyId={response.article.id} commentLength={response.count_comment}/>
               <RecommendArticle isLastData={response.last_data} idArr={response.article_id} type={response.article.type} articles={response.arr_recommend_article}/>
