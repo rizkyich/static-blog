@@ -663,7 +663,7 @@ const CommentSection = ({data, arrCommentId, isLastData, keyId, reloadArticle, c
     <div className="relative mt-4 w-11/12 mx-auto md:w-12/12 lg:w-8/12 lg:pr-20 lg:ml-0">
       <h3 className="w-full border-b-2 border-gray-300 font-semibold">{commentLength} Komentar</h3>
 
-      <form onSubmit={e => handleSubmit(e).then(_ => finishReplyComment())} className="flex relative flex-col justify-end items-end w-full h-auto border-b-2 border-gray-300 pb-4">
+      <form onSubmit={e => handleSubmit(e).then(_ => finishComment())} className="flex relative flex-col justify-end items-end w-full h-auto border-b-2 border-gray-300 pb-4">
         {
           loading &&
           <div className="absolute top-0 w-full h-full flex justify-center items-center bg-white bg-opacity-70">
