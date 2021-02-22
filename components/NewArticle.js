@@ -8,7 +8,7 @@ const CustomDot = ({ onMove, index, onClick, active }) => {
   // active is provided by this lib for checking if the item is active or not.
   return (
     <li
-      className={active ? "mx-1 w-3 h-3 rounded-full border-2 border-blue-700 bg-blue-400" : "mx-1 w-3 h-3 rounded-full border-2 border-blue-700"}
+      className={active ? "mx-1 w-3 h-3 rounded-full border-2 border-blue-500 bg-blue-500" : "mx-1 w-3 h-3 rounded-full border-2 border-blue-700"}
       onClick={() => onClick()}
     >
     </li>
@@ -62,7 +62,7 @@ export const NewArticle = ({articles, title}) => {
   return (
     <div id="new-article" className="w-12/12 lg:w-full md:w-11/12 md:mx-auto h-80 lg:h-lg xl:h-xl 2xl:h-2xl">
       <TitleText text={title}/>
-      <div id="carousel-container" className="w-full h-full py-4">
+      <div id="carousel-container" className="outline-none w-full h-full py-4">
         
         {
           articles ? 
@@ -71,6 +71,7 @@ export const NewArticle = ({articles, title}) => {
             swipeable={true}
             draggable={false}
             showDots={true} 
+            infinite={true}
             responsive={responsive}
             removeArrowOnDeviceType={["tablet", "mobile"]}
             // renderButtonGroupOutside={false}

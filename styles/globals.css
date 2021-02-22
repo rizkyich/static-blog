@@ -4,8 +4,8 @@
 
 @font-face {
   font-family: 'Akzidenz-regular';
-  src: url('/fonts/akzidenz/Akzidenz Grotesk Pro Light Regular.woff') format('woff'),
-  url('/fonts/akzidenz/Akzidenz Grotesk Pro Light Regular.woff2') format('woff2');
+  src: url('/fonts/akzidenz/Akzidenz Grotesk Pro Bold Regular.woff') format('woff'),
+  url('/fonts/akzidenz/Akzidenz Grotesk Pro Bold Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }

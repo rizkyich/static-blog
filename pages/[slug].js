@@ -7,6 +7,7 @@ import {PopularArticle} from '../components/PopularArticle'
 import TitleText from '../components/TitleText'
 import {LoadMore} from '../components/LoadMore'
 import {RecentArticles} from '../components/RecentArticles'
+import Image from 'next/image'
 
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -60,7 +61,7 @@ const ArticleCont = ({children, data}) => {
 
   return (
     <>
-      <div className="w-11/12 mx-auto mb-6 lg:w-8/12 lg:pr-20 lg:mx-0 lg:h-26">
+      <div className="w-11/12 mx-auto mb-6 lg:w-8/12 lg:pr-10 xl:pr-12 2xl:pr-16 3xl:pr-20 lg:mx-0 lg:h-26">
         <div id="tgl-cat" className="mb-2 w-full flex md:justify-start">
           <p className="text-base text-blue-500 mr-4">{article.type}</p>
           <p className="transition-all duratioon-150 text-base group-hover:text-blue-500 md:w-auto">{article.date}</p>
@@ -174,11 +175,11 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
   }
 
   return (
-    <section id="share-container" className="fixed z-30 w-full lg:w-auto left-0 bottom-0 h-12 bg-gray-200 lg:bg-transparent lg:sticky lg:left-0 lg:top-40">
+    <section id="share-container" className="fixed z-30 w-full lg:w-auto left-0 bottom-0 h-12 bg-gray-200 lg:bg-transparent lg:sticky lg:left-0 lg:top-56">
       <ul className="w-full h-full pt-2 lg:pt-0 flex space-x-10 justify-center items-center lg:flex-col lg:space-x-0 lg:space-y-6">
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('wa').then(_ => openSocmed('wa'))}>
-            <img className="w-8 h-8" src={'/logo-sosmed/whatsapp.png'}/>
+            <img className="w-8 h-8  2xl:w-10 2xl:h-10" src={'/logo-sosmed/whatsapp.png'}/>
             {
               whatsappshare > 0 && <span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{whatsappshare}</span>
             }
@@ -186,7 +187,7 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
         </li>
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('fb').then(_ => openSocmed('fb'))}>
-            <img className="w-8 h-8" src={'/logo-sosmed/facebook.png'}/>
+            <img className="w-8 h-8 2xl:w-10 2xl:h-10" src={'/logo-sosmed/facebook.png'}/>
             {
              facebookshare > 0 &&<span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{facebookshare}</span>
             }
@@ -194,7 +195,7 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
         </li>
         <li>
           <button className="relative focus:outline-none"  onClick={() => ShareArticle('tw').then(_ => openSocmed('tw'))}>
-            <img className="w-8 h-8" src={'/logo-sosmed/twitter.png'}/>
+            <img className="w-8 h-8 2xl:w-10 2xl:h-10" src={'/logo-sosmed/twitter.png'}/>
             {
              twittershare > 0 && <span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{twittershare}</span>          
             }
@@ -202,7 +203,7 @@ const ShareArticle = ({slug, res, reloadArticle}) => {
         </li>
         <li>
           <button className="relative focus:outline-none" onClick={() => ShareArticle('li').then(_ => openSocmed('li'))}>
-            <img className="w-8 h-8" src={'/logo-sosmed/linkedin.png'}/>
+            <img className="w-8 h-8 2xl:w-10 2xl:h-10" src={'/logo-sosmed/linkedin.png'}/>
             {
               linkedinshare > 0 && <span className="absolute flex items-center justify-center -top-1 left-6 w-7 h-7 rounded-full text-xs bg-red-500 text-white ">{linkedinshare}</span>
             }
@@ -832,19 +833,34 @@ const Article = ({}) => {
     <>
     <Head>
       <title>{slug.split('-').map(a => a.charAt(0).toUpperCase() + a.substr(1)).join(' ')}</title>
+      {
+        response &&
+        <>
+        <meta property="og:title" content={response.article.title}></meta>
+        <meta itemProp="name" content={response.article.metadescription} />
+        <meta itemProp="description" content={response.article.metadescription} name="description" />
+        <meta property="og:site_name" content="HIGO"/>
+        <meta name="keywords" content={response.article.keyword} />
+        </>
+      }
     </Head>
     <MainLayout>
       <main className="w-full h-auto py-8 md:py-12">
         <div className="container mx-auto md:w-11/12 lg:w-full relative h-auto md:px-8 lg:px-0 xl:px-10 2xl:px-20 w-full">
           {
             !response ?
-            <div className="w-full h-screen flex justify-items-center items-center">
-              <p>loading</p>
+            <div className="w-full h-screen flex justify-center items-center">
+              <Image
+                src="/loading/Motion-Logo-.gif"
+                alt="loading"
+                width={100}
+                height={45}
+              />
             </div>
             :
             <>
               <div id="main-cont" className="relative">
-                <div className="absolute w-auto h-full lg:-left-20 xl:-left-24 pt-40">
+                <div className="absolute w-auto h-full lg:-left-20 xl:-left-24 2xl:-left-28 pt-40">
                   <ShareArticle res={response.article} slug={slug[0]} reloadArticle={async () => setResponse(await fetchData())}/>
                 </div>
                 <ArticleCont data={response}/>

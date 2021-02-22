@@ -62,7 +62,7 @@ export default function Search() {
                 :
                 <div className="w-full h-screen pt-4">
                   <TitleText text={'Hasil Pencarian tidak ditemukan'}/>
-                  <div className="w-full h-full flex flex-col space-y-10 pt-40 items-center">
+                  <div className="text-center w-full h-full flex flex-col space-y-10 pt-40 items-center">
                     <p className="text-xl text-gray-500">Artikel yang terkait dengan <b className="text-gray-900">{param.query.q}</b> tidak ditemukan</p>
                     <button onClick={() => router.back()} className="text-xl px-12 py-2 rounded-lg bg-blue-600 hover:bg-blue-900 text-white">Kembali</button>
                   </div>

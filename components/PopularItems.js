@@ -25,7 +25,7 @@ export const PopularItems = ({item, index, lastindex}) => {
         <div className="group flex h-full flex-col justify-between transition-all duratioon-150 w-full cursor-pointer">
           {
             item.type &&
-            <p className="md:hidden lg:block text-blue-400 text-xs md:text-sm">{item.type}</p>
+            <p className="text-blue-400 text-xs md:text-sm">{item.type}</p>
           }
           {
             item.title ?

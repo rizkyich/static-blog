@@ -153,7 +153,7 @@ export const NavBlog = ({getNavOpen}) => {
             <input
               value={searchText}
               onChange={e => setSearchText(e.target.value)}
-              className="w-10/12 px-1 focus:outline-none border-transparent"
+              className="w-10/12 px-1 focus:outline-none outline-none border-transparent"
               placeholder="Search..."
             />
             <button type="submit" className="w-3/12">

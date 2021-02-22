@@ -33,22 +33,32 @@ const BusinessTips = ({initData}) => {
   // useEffect
 
   return (
-    <MainLayout>
-      <main className="w-full h-auto py-8 md:py-12">
-        <div className="container mx-auto relative md:px-8 lg:px-0 xl:px-10 2xl:px-20">
-          <div id="new article" className="w-12/12 lg:w-7/12 h-auto">
-            <NewArticle title={'Artikel Terbaru'} articles={arrArticle.arr_new_article} className="h-80"/>
-            <RecentArticles idArr={arrArticle.article_id} articles={arrArticle.arr_current_article}/>
+    <>
+      <Head>
+        <title>Artikel Seputar Digital Marketing & WiFi Branding</title>
+        <meta property="og:title" content="Artikel seputar digital marketing & WiFi branding"></meta>
+        <meta itemProp="name" content="Kumpulan berita bisnis terbaru generasi milenial yang mencakup dunia startup di Indonesia dan seluruh dunia." />
+        <meta itemProp="description" content="Kumpulan berita bisnis terbaru generasi milenial yang mencakup dunia startup di Indonesia dan seluruh dunia." name="description" />
+        <meta property="og:site_name" content="HIGO"/>
+        <meta name="keywords" content="Blog HIGO, Lokasi Terbaru HIGOspot, Artikel Lifestyle & Teknologi, Artikel Tips Bisnis & Tempat Hangout" />
+      </Head>
+      <MainLayout>
+        <main className="w-full h-auto py-8 md:py-12">
+          <div className="container mx-auto relative md:px-8 lg:px-0 xl:px-10 2xl:px-20">
+            <div id="new article" className="w-12/12 lg:w-8/12 md:pr-6 h-auto">
+              <NewArticle title={'Artikel Terbaru'} articles={arrArticle.arr_new_article} className="h-80"/>
+              <RecentArticles idArr={arrArticle.article_id} articles={arrArticle.arr_current_article}/>
+            </div>
+            <PopularArticle articles={arrArticle.arr_popular_article}/>
           </div>
-          <PopularArticle articles={arrArticle.arr_popular_article}/>
-        </div>
-        {/* <VideoThumbnail/> */}
-        {
-          arrArticle.arr_businesstips_article &&
-          <CatCarousel businesstips={arrArticle.arr_businesstips_article} hangouts={arrArticle.arr_hangout_article} updates={arrArticle.arr_higoesupdate_article} lifestyles={arrArticle.arr_lifestyle_article} techs={arrArticle.arr_techsocialmedia_article}/>
-        }
-      </main>
-    </MainLayout>
+          {/* <VideoThumbnail/> */}
+          {
+            arrArticle.arr_businesstips_article &&
+            <CatCarousel businesstips={arrArticle.arr_businesstips_article} hangouts={arrArticle.arr_hangout_article} updates={arrArticle.arr_higoesupdate_article} lifestyles={arrArticle.arr_lifestyle_article} techs={arrArticle.arr_techsocialmedia_article}/>
+          }
+        </main>
+      </MainLayout>
+    </>
   )
 }
 

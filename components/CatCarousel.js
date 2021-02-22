@@ -53,12 +53,12 @@ const CatContainer = ({catIdx, item}) => {
           </div>
 
           <Link href="/[...slug]" as={`/${item[0].redirect_link}`}>
-            <a> 
-              <h1 className="transition-all leading-snug h-16 md:h-auto  duratioon-150 mt-1 md:text-lg group-hover:text-blue-500 2xl:text-xl font-bold">{item[0].title}</h1>
+            <a className="group"> 
+              <h1 className="transition-all leading-snug h-16 md:h-auto  duratioon-150 mt-1 md:text-lg group-hover:text-blue-700 2xl:text-xl font-bold">{item[0].title}</h1>
+              <div className="hidden mt-4 md:block md:h-16 lg:h-auto leading-snug md:mt-2 text-sm 2xl:text-base  group-hover:text-blue-700 text-gray-700" dangerouslySetInnerHTML={{__html: item[0].content}}></div>
             </a>
           </Link>
 
-          {/* <div className="hidden md:block md:h-16 lg:h-auto leading-snug md:mt-2 text-sm 2xl:text-base text-gray-700" dangerouslySetInnerHTML={{__html: item[0].content}}></div> */}
 
           <div id="views" className="flex lg:absolute bottom-0 left-0 items-center justify-start">
             <FontAwesomeIcon className="mr-2" color="gray" icon={["fas", "eye"]} />
@@ -80,7 +80,7 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[1].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all font-bold leading-snug h-20 md:h-16 duratioon-150 mt-1 text-sm md:text-base 2xl:text-lg  group-hover:text-blue-500">{item[1].title.length > 63 ? item[1].title.slice(0, 63) + '...' : item[1].title }</h1>
+                  <h1 className="hover:text-blue-700 transition-all font-bold leading-snug h-20 md:h-16 duratioon-150 mt-1 text-sm md:text-base 2xl:text-lg  group-hover:text-blue-500">{item[1].title.length > 63 ? item[1].title.slice(0, 63) + '...' : item[1].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
@@ -99,7 +99,7 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[2].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all font-bold h-20 md:h-16 duratioon-150 leading-snug mt-1 text-sm md:text-base 2xl:text-lg group-hover:text-blue-500">{item[2].title.length > 63 ? item[2].title.slice(0, 58) + '...' : item[2].title }</h1>
+                  <h1 className="hover:text-blue-700 transition-all font-bold h-20 md:h-16 duratioon-150 leading-snug mt-1 text-sm md:text-base 2xl:text-lg group-hover:text-blue-500">{item[2].title.length > 63 ? item[2].title.slice(0, 58) + '...' : item[2].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
@@ -123,7 +123,7 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[3].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all font-bold h-20 md:h-16 duratioon-150 mt-1 md:text-base 2xl:text-lg group-hover:text-blue-500">{item[3].title.length > 63 ? item[3].title.slice(0, 60) + '...' : item[3].title }</h1>
+                  <h1 className="hover:text-blue-700 transition-all font-bold h-20 md:h-16 duratioon-150 mt-1 md:text-base 2xl:text-lg group-hover:text-blue-500">{item[3].title.length > 63 ? item[3].title.slice(0, 60) + '...' : item[3].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
@@ -142,7 +142,7 @@ const CatContainer = ({catIdx, item}) => {
               </div>
               <Link href="/[...slug]" as={`/${item[4].redirect_link}`}>
                 <a>
-                  <h1 className="transition-all font-bold h-20 md:h-16 duratioon-150 mt-1 md:text-base 2xl:text-lg group-hover:text-blue-500">{item[4].title.length > 63 ? item[4].title.slice(0, 60) + '...' : item[4].title }</h1>
+                  <h1 className="hover:text-blue-700 transition-all font-bold h-20 md:h-16 duratioon-150 mt-1 md:text-base 2xl:text-lg group-hover:text-blue-500">{item[4].title.length > 63 ? item[4].title.slice(0, 60) + '...' : item[4].title }</h1>
                 </a>
               </Link>
               <div id="views" className="flex items-center justify-start">
