@@ -870,7 +870,7 @@ const Article = ({}) => {
                 src="/loading/Motion-Logo-.gif"
                 alt="loading"
                 width={100}
-                height={45}
+                height={40}
               />
             </div>
             :
@@ -879,7 +879,7 @@ const Article = ({}) => {
                 <div className="absolute w-auto h-full lg:-left-20 xl:-left-24 2xl:-left-28 pt-40">
                   <ShareArticle res={response.article} slug={slug[0]} reloadArticle={async () => setResponse(await fetchData())}/>
                 </div>
-                <ArticleCont data={response} tag={['tiktok', 'instagram', 'facebook', 'lifestyle', 'children', 'castlevania']}/>
+                <ArticleCont data={response} tag={response.article.tag}/>
                 <PopularArticle sticky={true} articles={response.arr_popular_article}/>
               </div>
               <Reaction res={response.article} reloadArticle={async () => setResponse(await fetchData())}/>
