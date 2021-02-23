@@ -73,9 +73,9 @@ export default function NavBar ({getNavOpen}) {
         </ul>
 
         <button onClick={() => setNavOpen(!navOpen)} className="w-7 py-1 h-12/12 flex flex-col md:hidden justify-between">
-            <div className="w-full w-12/12 h-0.5 bg-white"></div>
-            <div className="w-full w-12/12 h-0.5 bg-white"></div>
-            <div className="w-full w-12/12 h-0.5 bg-white"></div>
+            <div className="w-7  w-12/12 h-0.5 bg-white"></div>
+            <div className="w-7  w-12/12 h-0.5 bg-white"></div>
+            <div className="w-7 w-12/12 h-0.5 bg-white"></div>
         </button>
       {/* </div> */}
       {
