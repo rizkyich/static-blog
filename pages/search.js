@@ -34,14 +34,12 @@ export default function Search() {
       setArrArticle([])
       setStrId('')
       const obj = await fetchData('')
-      console.log(obj, 'h')
       setResponse({...obj})
     }
   }, [param.query.q])
 
   useEffect(() => {
     if (response) {
-      console.log('lewat', response)
       setArrArticle([...arrArticle, ...response.arr_article])
       setStrId(response.article_id)
     }

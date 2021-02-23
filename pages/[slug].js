@@ -43,7 +43,7 @@ function useWindowSize() {
 }
 
 const ArticleCont = ({children, data, tag}) => {
-  console.log(data, 'lll')
+  // console.log(data, 'lll')
   const size = useWindowSize()
   const [windowSize, setWindowSize] = useState(size.width)
 
@@ -318,7 +318,6 @@ const CommentItem = ({keyId, item, goReload}) => {
     let likeVal
     if (id) {
       const idFound = likeArr.findIndex(e => e === id)
-      console.log(idFound, 'found')
       if (idFound !== -1) {
         const newList = likeArr.filter(x => x !== id)
         setLikeArr(newList)
@@ -365,6 +364,7 @@ const CommentItem = ({keyId, item, goReload}) => {
     setLoading(false)
     setComment('')
     setUsername('')
+    setLengthArr(count => count + 1)
     loadReply(true).then(data => setReply(data, user))
   }
 
@@ -417,17 +417,14 @@ const CommentItem = ({keyId, item, goReload}) => {
 
   const getReplyComment = (id) => {
     if (likeArr.findIndex(em => em === id) !== -1) {
-      console.log('kenapa')
       return true
     } else {
-      console.log('ga kenapa')
       return false
     }
   }
 
   const setReply = (data, user) => {
       // setShowRep(false)
-      console.log(data.arr_comment)
       setLastData(data.last_data)
       if (user) {
         setReplies([...data.arr_comment])
@@ -446,8 +443,6 @@ const CommentItem = ({keyId, item, goReload}) => {
       setOpenReplyComment(e)
       setOpenReply(false)
     }
-
-    console.log(openReplyComment, 'kkkk')
   }
 
   return (
@@ -470,7 +465,7 @@ const CommentItem = ({keyId, item, goReload}) => {
         }
       </div>
       {
-        item.count_reply > 0 &&
+        lengthArr > 0 &&
         <button onClick={() => setShowRep(!showRep)} className="focus:outline-none text-sm my-1 flex space-x-2 items-center hover:underline text-blue-600"><p>{lengthArr} Balasan</p><FontAwesomeIcon className="text-blue-500" size="sm" icon={["fa", "chevron-down"]} /></button>
       }
       {
@@ -888,7 +883,6 @@ const Article = ({}) => {
             </>
           }
         </div>
-
       </main>
     </MainLayout>
     </>

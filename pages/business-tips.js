@@ -17,7 +17,6 @@ const BusinessTips = ({initData}) => {
     data: 'businesstips',
     method: 'post'
   }
-  console.log(initData, 'daj')
   const initRequestArticle = initData && initData.isServer ? null : requestListArticleParam
   
   const [listArticle, requestListArticle] = useApi(initRequestArticle, initData)
