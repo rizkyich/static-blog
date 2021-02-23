@@ -8,7 +8,7 @@ export const MainLayout = ({children}) => {
 
   return (
     <div className="w-full">
-      <NavBar/>
+      <NavBar getNavOpen={(val) => setIsNavOpen(val)}/>
       <NavBlog getNavOpen={(val) => setIsNavOpen(val)}/>
       <div className={`${isNavOpen ? 'overflow-hidden' : null}`} style={{height: `${isNavOpen ? 'calc(100vh - 8rem)' : 'auto'}`}}>
         {children}

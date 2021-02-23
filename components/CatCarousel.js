@@ -71,7 +71,7 @@ const CatContainer = ({catIdx, item}) => {
 
         <div className="flex space-x-4 md:space-x-6 lg:space-x-4 xl:space-x-6">
 
-          <div className="h-auto">
+          <div className="h-auto w-full w-12/12">
             <img className="w-full h-32 sm:h-40 xl:h-40 2xl:h-56 shadow-lg" src={item[1].img_url} />
             <div className="w-full mx-auto">
               <div className="w-full mt-3 flex">
@@ -90,7 +90,7 @@ const CatContainer = ({catIdx, item}) => {
             </div>
           </div>
 
-          <div className="h-auto">
+          <div className="h-auto w-full w-12/12">
             <img className="w-full h-32 sm:h-40 xl:h-40 2xl:h-56 shadow-lg" src={item[2].img_url} />
             <div className="w-full mx-auto">
               <div className="w-full mt-3 flex">
@@ -114,7 +114,7 @@ const CatContainer = ({catIdx, item}) => {
 
         <div className="hidden lg:flex mt-4 space-x-4 xl:space-x-6">
 
-        <div className="h-auto">
+        <div className="h-auto w-full w-12/12">
             <img className="w-full shadow-lg h-40 xl:h-40 2xl:h-56" src={item[3].img_url} />
             <div className="w-full mx-auto">
               <div className="w-full mt-3 flex">
@@ -133,7 +133,7 @@ const CatContainer = ({catIdx, item}) => {
             </div>
           </div>
 
-          <div className="h-auto">
+          <div className="h-auto w-full w-12/12">
             <img className="w-full h-40 xl:h-40 shadow-lg 2xl:h-56" src={item[4].img_url} />
             <div className="w-11/12 md:w-full mx-auto">
               <div className="w-full mt-3 flex">
